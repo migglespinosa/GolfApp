@@ -7,3 +7,11 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+describe('<App/>', () => {
+
+  it('Renders', () => {
+    const wrapper = shallow(<App/>);
+    expect(wrapper.find('.Golf').exists()).toEqual(true);
+  })
+});
