@@ -1,6 +1,6 @@
 import React from 'react';
-import Score from './Score';
-import Map from './Map';
+import Score from './Score/Score';
+import Map from './Map/Map';
 import logo from './logo.svg';
 import './App.css';
 
