@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Score from './Score';
+import Map from './Map';
 import { configure, shallow, mount } from 'enzyme';
-
-it('renders without crashing 2', () => {
-  shallow(<App />);
-});
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -13,11 +11,22 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-
 describe('<App/>', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<App/>);
+  });
 
   it('Renders', () => {
-    const wrapper = shallow(<App/>);
     expect(wrapper.find('.Golf').exists()).toEqual(true);
   })
+
+  it('Contains <Score/>', () => {
+    expect(wrapper.find(Score).exists()).toEqual(true);
+  })
+
+  it('Contains <Map/>', () => {
+    expect(wrapper.find(Map).exists()).toEqual(true);
+  })
+
 });

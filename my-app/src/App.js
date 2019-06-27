@@ -1,4 +1,6 @@
 import React from 'react';
+import Score from './Score';
+import Map from './Map';
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,6 +23,8 @@ function App() {
       </header>
       <div className="Golf">
         This is a golf app.
+        <Score/>
+        <Map/>
       </div>
     </div>
   );
