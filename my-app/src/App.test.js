@@ -1,8 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Score from './Score/Score.js';
-import Map from './Map/Map.js';
+import Calculate from './Calculate/Calculate';
+import FriendRequests from './FriendRequests/FriendRequests';
+import Friends from './Friends/Friends';
+import HandicapProgress from './HandicapProgress/HandicapProgress';
+import Map from './Map/Map';
+import Score from './Score/Score';
+import SearchCourses from './SearchCourses/SearchCourses';
+import SearchRanges from './SearchRanges/SearchRanges';
+import SearchShops from './SearchShops/SearchShops';
+import SetAppointments from './SetAppointments/SetAppointments';
+import UpcomingAppointments from './UpcomingAppointments/UpcomingAppointments';
 import { configure, shallow, mount } from 'enzyme';
 
 it('renders without crashing', () => {
@@ -64,6 +73,4 @@ describe('<App/>', () => {
   it('Contains <SearchShops/>', () => {
     expect(wrapper.find(SearchShops).exists()).toEqual(true);
   })
-
-
 });
