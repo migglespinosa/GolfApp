@@ -1,0 +1,56 @@
+import React, {Component} from 'react';
+
+
+function CreateButtons(props){
+  const componentsList = Array.from(props.components)
+  return(
+    <div id="buttonsDisplay">
+      {componentsList.map(component => (
+        <button
+          type="button"
+          key={component}
+          onClick={e => props.setComponent(component)}
+        >
+          {component}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+
+class Buttons extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      display: null
+    };
+    //this.changeDisplay = this.changeDisplay.bind(this);
+  }
+
+/*
+  changeDisplay(incomingDisplay){
+    this.setState({
+      display: incomingDisplay
+    })
+  }
+*/
+  render(){
+
+    const components = ["Calculate", "FriendRequests", "Friends",
+                      "HandicapProgress", "Map", "Score", "SearchCourses",
+                      "SearchRanges", "SearchShops", "SetAppointments",
+                      "UpcomingAppointments"];
+    const setComponent = this.props.setComponent;
+    return (
+      <div>
+        <CreateButtons
+          components={components}
+          setComponent={setComponent}
+        />
+      </div>
+    );
+  }
+}
+
+export default Buttons;

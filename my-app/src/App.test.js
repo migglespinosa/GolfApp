@@ -25,11 +25,7 @@ describe('<App/>', () => {
   beforeEach(() => {
     wrapper = shallow(<App/>);
   });
-
-  it('Renders', () => {
-    expect(wrapper.find('.Golf').exists()).toEqual(true);
-  })
-
+  
   it('Contains <Score/>', () => {
     expect(wrapper.find(Score).exists()).toEqual(true);
   })
