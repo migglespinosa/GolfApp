@@ -74,3 +74,16 @@ describe('<App/>', () => {
     expect(wrapper.find(SearchShops).exists()).toEqual(true);
   })
 });
+
+describe('<App/> functionality', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<App/>);
+  });
+
+  it('Clicking the Calculate button renders <Calculate/>', () => {
+    expect(wrapper.find(SearchShops).exists()).toEqual(true);
+  })
+
+
+});
