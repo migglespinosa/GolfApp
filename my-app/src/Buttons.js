@@ -9,6 +9,7 @@ function CreateButtons(props){
         <button
           type="button"
           key={component}
+          className={component.toString()}
           onClick={e => props.setComponent(component)}
         >
           {component}
