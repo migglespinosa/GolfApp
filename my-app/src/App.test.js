@@ -108,6 +108,13 @@ describe('<App/>', () => {
     SRWrapper.simulate('click');
     expect(wrapper.state('display')).toEqual('SearchShops');
   })
+});
 
+const calculate = require('./Calculate/Calculate');
 
+describe('Tests for <Calculate/>', () => {
+  it("A Golf Score of 100, a course rating of 74.2, and a slope of 115 generates a handicap differential 23.5", () => {
+    const wrapper = calculator.calculate(100, 74.2, 115, () => {});
+    expect(wrapper.result).toEqual(23.5);
+  })
 });
