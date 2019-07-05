@@ -29,13 +29,6 @@ class Buttons extends Component{
     //this.changeDisplay = this.changeDisplay.bind(this);
   }
 
-/*
-  changeDisplay(incomingDisplay){
-    this.setState({
-      display: incomingDisplay
-    })
-  }
-*/
   render(){
 
     const components = ["Calculate", "FriendRequests", "Friends",
