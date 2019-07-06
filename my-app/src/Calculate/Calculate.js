@@ -2,91 +2,65 @@ import React from 'react';
 import logo from '../logo.svg';
 import '../App.css';
 
-function CalcButton(props){
-  const CourseRating = props.CourseRating;
-  const Score = props.Score;
-  const Slope = props.Slope;
-  return(
-    <button type="button"
-            key="differential"
-            onClick={e => props.calculateDiff(Score, CourseRating, Slope)}>Calculate</button>
-  );
-}
-
-function GatherInput(props){
-  const settingVariable = props.settingVariable;
-  return(
-    <form>
-      Your Score: <input type="number" id="Score" name="Score"
-                  onChange={e => settingVariable(document.getElementById('Score').value, "Score")}/><br/>
-
-      Course Rating: <input type="number" id="CourseRating"name="CourseRating"
-                     onChange={e => settingVariable(document.getElementById('CourseRating').value, "CourseRating")}/><br/>
-
-      Slope Rating: <input type="number" id="Slope" name="Slope"
-                    onChange={e => settingVariable(document.getElementById('Slope').value, "Slope")}/><br/>
-    </form>
-  );
-}
-
 class Calculate extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      differential: 0,
+      display: 0,
       Score: 0,
       CourseRating: 0,
       Slope: 0
     }
     this.calculateDiff = this.calculateDiff.bind(this);
+    this.handleScoreChange = this.handleScoreChange.bind(this);
+    this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
+    this.handleSlopeChange = this.handleSlopeChange.bind(this);
   }
 
-  calculateDiff(Score, CourseRating, Slope){
-    const differential = (Score - CourseRating)*(113/Slope)
-    console.log(differential)
+  calculateDiff(event){
+    const differential = (this.state.Score - this.state.CourseRating)*(113/this.state.Slope)
     this.setState({
-      display: differential
+      display: Math.round(differential)
     });
+    console.log("differential" + this.state.display)
+    event.preventDefault();
   }
 
-  settingVariable(Variable, Type){
-    console.log("Type " + Type)
-    if(Type == "Score"){
-      console.log("Score" + Variable);
-      this.setState({
-        Score: Variable
-      });
-    }
-    else if(Type == "CourseRating"){
-      console.log("CourseRating " + Variable);
-      this.setState({
-        CourseRating: Variable
-      });
-    }
-    else if(Type == "Slope"){
-      console.log("Slope" + Variable);
-      this.setState({
-        Slope: Variable
-      });
-    }
+  handleScoreChange(event){
+    this.setState({Score: event.target.value});
+  }
+
+  handleCourseRatingChange(event){
+    this.setState({CourseRating: event.target.value});
+  }
+
+  handleSlopeChange(event){
+    this.setState({Slope: event.target.value});
   }
 
 
   render(){
     return(
       <div>
-        <h1>Calculate your handicap differential.</h1>
-          <GatherInput settingVariable={this.settingVariable}/>
-          <CalcButton Score={this.state.Score}
-                         CourseRating={this.state.CourseRating}
-                         Slope={this.state.Slope}
-                         calculateDiff={this.calculateDiff}/>
-
-        <h2>Your differential is: {this.state.differential}</h2>
-
+        <h1>Your handicap is: {this.state.display}</h1>
+        <form onSubmit={this.calculateDiff}>
+          <label>
+            Score:
+            <input type="text" value={this.state.Score} onChange={this.handleScoreChange} />
+          </label> <br />
+          <label>
+            Course Rating:
+            <input type="text" value={this.state.CourseRating} onChange={this.handleCourseRatingChange} />
+          </label> <br />
+          <label>
+            Slope:
+            <input type="text" value={this.state.Slope} onChange={this.handleSlopeChange} />
+          </label> <br />
+          <input type="submit" value="Submit" />
+        </form>
       </div>
-    )
+    );
   }
 }
 
