@@ -47,15 +47,21 @@ class Calculate extends React.Component {
         <form onSubmit={this.calculateDiff}>
           <label>
             Score:
-            <input type="text" value={this.state.Score} onChange={this.handleScoreChange} />
+            <input type="text" id="Score"
+            value={this.state.Score}
+            onChange={this.handleScoreChange} />
           </label> <br />
           <label>
             Course Rating:
-            <input type="text" value={this.state.CourseRating} onChange={this.handleCourseRatingChange} />
+            <input type="text" id="CourseRating"
+            value={this.state.CourseRating}
+            onChange={this.handleCourseRatingChange} />
           </label> <br />
           <label>
             Slope:
-            <input type="text" value={this.state.Slope} onChange={this.handleSlopeChange} />
+            <input type="text" id="Slope"
+            value={this.state.Slope}
+            onChange={this.handleSlopeChange} />
           </label> <br />
           <input type="submit" value="Submit" />
         </form>
