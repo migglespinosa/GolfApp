@@ -1,6 +1,17 @@
 import React from 'react';
+import DifferentialDisplay from './DifferentialDisplay';
+import data from '../differentials.json';
 import logo from '../logo.svg';
 import '../App.css';
+
+const populateArray = rounds => {
+  console.log(rounds.length)
+  const differentialArray = [];
+  //rounds.forEach(round => {
+  //  differentialArray.push();
+  //})
+  return differentialArray;
+};
 
 class Calculate extends React.Component {
 
@@ -16,6 +27,7 @@ class Calculate extends React.Component {
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
+    this.differentialArray = populateArray(data);
   }
 
   calculateDiff(event){
@@ -39,11 +51,23 @@ class Calculate extends React.Component {
     this.setState({Slope: event.target.value});
   }
 
+  saveDifferential(){
+    const currentDate = new Date();
+    const differentialObject = {
+      date: currentDate.toLocaleString(),
+      differential: this.state.display
+    }
+    this.differentialArray.push(differentialObject);
+  }
+
 
   render(){
     return(
       <div>
         <h1>Your handicap is: {this.state.display}</h1>
+        <button type="button" id="Save" onClick={e => this.saveDifferential()}>
+          Save Button
+        </button>
         <form onSubmit={this.calculateDiff}>
           <label>
             Score:
@@ -65,9 +89,11 @@ class Calculate extends React.Component {
           </label> <br />
           <input type="submit" value="Submit" />
         </form>
+        <DifferentialDisplay differentials={this.differentialArray}/>
       </div>
     );
   }
 }
 
 export default Calculate;
+export {populateArray};

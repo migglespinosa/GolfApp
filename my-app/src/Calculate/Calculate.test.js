@@ -8,13 +8,7 @@ describe('Tests for <Calculate/>', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<Calculate/>);
-  });
 
-  it("Score input exists ", () => {
-    expect(wrapper.find('#Score').exists()).toEqual(true);
-  })
-
-  it("A Golf Score of 100, a course rating of 74.2, and a slope of 115 generates a handicap differential 25", () => {
     const ScoreWrapper = wrapper.find('#Score');
     ScoreWrapper.simulate("change", {target: { value: 100} });
     ScoreWrapper.update();
@@ -30,6 +24,27 @@ describe('Tests for <Calculate/>', () => {
     const SubmitButton = wrapper.find('[type="submit"]');
     SubmitButton.simulate('submit');
     expect(wrapper.state('display')).toEqual(25);
+  });
 
+  it("Score input exists ", () => {
+    expect(wrapper.find('#Score').exists()).toEqual(true);
+  })
+
+  it("A Golf Score of 100, a course rating of 74.2, and a slope of 115 generates a handicap differential of 25", () => {
+    const SubmitButton = wrapper.find('[type="submit"]');
+    SubmitButton.simulate('submit');
+    expect(wrapper.state('display')).toEqual(25);
+  })
+
+  it("Clicking the 'Save' button adds your handicap differential to an array of scores", () => {
+    const SaveButton = wrapper.find('#Save');
+    SaveButton.simulate('click');
+
+    const DifferentialDisplay = wrapper.find('#DifferentialDisplay');
+    expect(DifferentialDisplay.length()).toEqual(0);
+
+    const SubmitButton = wrapper.find('[type="submit"]');
+    SubmitButton.simulate('submit');
+    expect(DifferentialDisplay.length()).toEqual(1);
   })
 });
