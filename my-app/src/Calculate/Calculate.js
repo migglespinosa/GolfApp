@@ -28,7 +28,6 @@ class Calculate extends React.Component {
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
-    this.createList = this.createList.bind(this);
     this.differentialArray = populateArray(data);
   }
 
@@ -40,24 +39,6 @@ class Calculate extends React.Component {
     console.log("differential" + this.state.display)
     event.preventDefault();
   }
-
-  createList(){
-    const differentials = this.state.differentials.map(differential => (
-      <li
-        key={this.state.differentials.indexOf(differential)}
-      >
-        {differential.date} + {differential.differential}
-      </li>
-    ));
-    console.log("CreateList :" + this.state.differentials);
-    if(differentials){
-      return differentials
-    }
-    else{
-      return null;
-    }
-  }
-
 
   handleScoreChange(event){
     this.setState({Score: event.target.value});
@@ -114,7 +95,7 @@ class Calculate extends React.Component {
           </label> <br />
           <input type="submit" value="Submit" />
         </form>
-          {this.createList}
+          <DifferentialDisplay differentials={this.state.differentialArray}/>
       </div>
     );
   }
