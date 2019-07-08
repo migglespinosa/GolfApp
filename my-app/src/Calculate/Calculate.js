@@ -21,12 +21,14 @@ class Calculate extends React.Component {
       display: 0,
       Score: 0,
       CourseRating: 0,
-      Slope: 0
+      Slope: 0,
+      differentialArray: []
     }
     this.calculateDiff = this.calculateDiff.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
+    this.createList = this.createList.bind(this);
     this.differentialArray = populateArray(data);
   }
 
@@ -38,6 +40,24 @@ class Calculate extends React.Component {
     console.log("differential" + this.state.display)
     event.preventDefault();
   }
+
+  createList(){
+    const differentials = this.state.differentials.map(differential => (
+      <li
+        key={this.state.differentials.indexOf(differential)}
+      >
+        {differential.date} + {differential.differential}
+      </li>
+    ));
+    console.log("CreateList :" + this.state.differentials);
+    if(differentials){
+      return differentials
+    }
+    else{
+      return null;
+    }
+  }
+
 
   handleScoreChange(event){
     this.setState({Score: event.target.value});
@@ -57,7 +77,12 @@ class Calculate extends React.Component {
       date: currentDate.toLocaleString(),
       differential: this.state.display
     }
-    this.differentialArray.push(differentialObject);
+    //var appended = this.state.differentialArray.concat(differentialObject);
+    //console.log(appended)
+    this.setState({
+      differentialArray: [...this.state.differentialArray, differentialObject]
+    });
+    console.log(this.state.differentialArray);
   }
 
 
@@ -89,7 +114,7 @@ class Calculate extends React.Component {
           </label> <br />
           <input type="submit" value="Submit" />
         </form>
-        <DifferentialDisplay differentials={this.differentialArray}/>
+          {this.createList}
       </div>
     );
   }
