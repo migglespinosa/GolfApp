@@ -22,9 +22,11 @@ class Calculate extends React.Component {
       Score: 0,
       CourseRating: 0,
       Slope: 0,
+      Handicap: null,
       differentialArray: []
     }
     this.calculateDiff = this.calculateDiff.bind(this);
+    this.CalculateHandicap = this.CalculateHandicap.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
@@ -38,6 +40,10 @@ class Calculate extends React.Component {
     });
     console.log("differential" + this.state.display)
     event.preventDefault();
+  }
+
+  CalculateHandicap(){
+
   }
 
   handleScoreChange(event){
@@ -96,6 +102,12 @@ class Calculate extends React.Component {
           <input type="submit" value="Submit" />
         </form>
           <DifferentialDisplay differentials={this.state.differentialArray}/>
+        <div>
+          {this.state.differentialArray.length >= 5 ? (
+            <button type="button" key="Calculate" id="CalculateHandicaps" onClick={e => this.CalculateHandicaps()}>CalculateHandicap</button>) : (
+            "To Calculate your handicap, please save more than five differentials!"
+          )}
+        </div>
       </div>
     );
   }

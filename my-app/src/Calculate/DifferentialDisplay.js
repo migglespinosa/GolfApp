@@ -4,7 +4,7 @@ import Calculate from './Calculate';
 function CreateList(props){
 
   const differentials = props.differentials.map(differential => (
-    <ul id="differentialList" key="List">
+    <ul id="differentialList">
       <li
         key={props.differentials.indexOf(differential)}
       >

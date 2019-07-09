@@ -34,14 +34,24 @@ describe('Tests for <Calculate/>', () => {
 
 
   it("Clicking the 'Save' button adds your handicap differential to an array of scores", () => {
-
     expect(wrapper.find('#differentialList').children()).toHaveLength(0)
     const SubmitButton = wrapper.find('[type="submit"]');
     SubmitButton.simulate('submit');
     const SaveButton = wrapper.find('#Save');
     SaveButton.simulate('click');
     expect(wrapper.find('#differentialList').children()).toHaveLength(1);
-
   })
+
+  it("The 'Calculate Handicap' button doesn't display until a minimum of five differentials are entered", () => {
+    expect(wrapper.find('#CalculateHandicaps').exists()).toEqual(false);
+    const SaveButton = wrapper.find('#Save');
+
+    var i;
+    for(i = 0; i < 5; i++){
+      SaveButton.simulate('click');
+    }
+    expect(wrapper.find('#CalculateHandicaps').exists()).toEqual(true);
+  })
+
 
 });
