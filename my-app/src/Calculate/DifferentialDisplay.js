@@ -4,11 +4,13 @@ import Calculate from './Calculate';
 function CreateList(props){
 
   const differentials = props.differentials.map(differential => (
-    <li
-      key={props.differentials.indexOf(differential)}
-    >
-      {differential.date} + {differential.differential}
-    </li>
+    <ul id="differentialList" key="List">
+      <li
+        key={props.differentials.indexOf(differential)}
+      >
+        {differential.date} + {differential.differential}
+      </li>
+    </ul>
   ));
   if(differentials){
     return differentials

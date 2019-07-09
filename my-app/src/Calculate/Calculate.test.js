@@ -20,10 +20,6 @@ describe('Tests for <Calculate/>', () => {
     const SlopeWrapper = wrapper.find('#Slope');
     SlopeWrapper.simulate("change", {target: { value: 115} });
     SlopeWrapper.update();
-
-    const SubmitButton = wrapper.find('[type="submit"]');
-    SubmitButton.simulate('submit');
-    expect(wrapper.state('display')).toEqual(25);
   });
 
   it("Score input exists ", () => {
@@ -36,15 +32,16 @@ describe('Tests for <Calculate/>', () => {
     expect(wrapper.state('display')).toEqual(25);
   })
 
+
   it("Clicking the 'Save' button adds your handicap differential to an array of scores", () => {
-    const SaveButton = wrapper.find('#Save');
-    SaveButton.simulate('click');
 
-    const DifferentialDisplay = wrapper.find('#DifferentialDisplay');
-    expect(DifferentialDisplay.length()).toEqual(0);
-
+    expect(wrapper.find('#differentialList').children()).toHaveLength(0)
     const SubmitButton = wrapper.find('[type="submit"]');
     SubmitButton.simulate('submit');
-    expect(DifferentialDisplay.length()).toEqual(1);
+    const SaveButton = wrapper.find('#Save');
+    SaveButton.simulate('click');
+    expect(wrapper.find('#differentialList').children()).toHaveLength(1);
+
   })
+
 });
