@@ -22,7 +22,7 @@ class Calculate extends React.Component {
       Score: 0,
       CourseRating: 0,
       Slope: 0,
-      Handicap: null,
+      handicap: 0,
       differentialArray: []
     }
     this.calculateDiff = this.calculateDiff.bind(this);
@@ -42,8 +42,20 @@ class Calculate extends React.Component {
     event.preventDefault();
   }
 
-  CalculateHandicap(){
-
+  CalculateHandicap(event){
+    console.log("Handicap Clicked")
+    const sortedDifferentials = this.state.differentialArray;
+    sortedDifferentials.sort((a,b) => (a.differential > b.differential) ? 1 : ((b.differential > a.differential) ? -1 : 0));
+    console.log(sortedDifferentials)
+    var total = 0;
+    var i;
+    for(i = 0; i < 5; i++){
+      console.log(sortedDifferentials[i].differential)
+      total = total + sortedDifferentials[i].differential;
+    }
+    this.setState({
+      handicap: (total)/5
+    })
   }
 
   handleScoreChange(event){
@@ -76,7 +88,8 @@ class Calculate extends React.Component {
   render(){
     return(
       <div>
-        <h1>Your handicap is: {this.state.display}</h1>
+        <h1>Currently, your total handicap is {this.state.handicap}</h1>
+        <h2>Your differential is: {this.state.display}</h2>
         <button type="button" id="Save" onClick={e => this.saveDifferential()}>
           Save Button
         </button>
@@ -104,7 +117,7 @@ class Calculate extends React.Component {
           <DifferentialDisplay differentials={this.state.differentialArray}/>
         <div>
           {this.state.differentialArray.length >= 5 ? (
-            <button type="button" key="Calculate" id="CalculateHandicaps" onClick={e => this.CalculateHandicaps()}>CalculateHandicap</button>) : (
+            <button type="button" key="Calculate" id="CalculateHandicaps" onClick={e => this.CalculateHandicap()}>CalculateHandicap</button>) : (
             "To Calculate your handicap, please save more than five differentials!"
           )}
         </div>
