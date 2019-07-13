@@ -1,0 +1,93 @@
+[
+  {
+    "Username": "Tiger",
+    "Password": "Tiger1234",
+    "First Name": "Tiger",
+    "Last Name": "Woods",
+    "Friends": [
+      "Rory",
+      "Brooks"
+    ],
+    "Differntials": [
+      {"Date": "2019-11-04T23:10:00.933Z",
+       "Differntial": 70},
+      {"Date": "2019-12-04T23:10:00.933Z",
+      "Differntial": 68},
+      {"Date": "2019-13-04T23:10:00.933Z",
+       "Differntial": 67},
+      {"Date": "2019-14-04T23:10:00.933Z",
+      "Differntial": 70},
+      {"Date": "2019-16-06T23:10:00.933Z",
+      "Differntial": 69},
+    ],
+  "Handicap": [
+    {"Date": "2019-16-06T23:10:00.933Z",
+    "Handicap": 69},
+    ]
+  },
+  {
+    "Username": "Brooks",
+    "Password": "Brooks1234",
+    "First Name": "Brooks",
+    "Last Name": "Koepka",
+    "Friends": [
+      "Tiger",
+      "Rory"
+    ],
+    "Differntials": [
+      {"Date": "2019-11-04T23:10:00.933Z",
+       "Differntial": 66},
+      {"Date": "2019-12-04T23:10:00.933Z",
+      "Differntial": 71},
+      {"Date": "2019-13-04T23:10:00.933Z",
+       "Differntial": 69},
+      {"Date": "2019-14-04T23:10:00.933Z",
+      "Differntial": 70},
+      {"Date": "2019-16-05T23:10:00.933Z",
+      "Differntial": 63},
+      {"Date": "2019-17-05T23:10:00.933Z",
+      "Differntial": 65},
+      {"Date": "2019-18-05T23:10:00.933Z",
+      "Differntial": 68},
+      {"Date": "2019-19-05T23:10:00.933Z",
+      "Differntial": 65},
+      {"Date": "2019-15-06T23:10:00.933Z",
+      "Differntial": 68},
+      {"Date": "2019-16-06T23:10:00.933Z",
+      "Differntial": 68}
+    ],
+  "Handicap": [
+      {"Date": "2019-16-05T23:10:00.933Z",
+      "Handicap": 67.8},
+      {"Date": "2019-16-06T23:10:00.933Z",
+      "Handicap": 66.8},
+    ]
+  },
+  {
+    "Username": "Rory",
+    "Password": "Rory1234",
+    "First Name": "Rory",
+    "Last Name": "McIlroy",
+    "Friends": [
+      "Tiger",
+      "Brooks"
+    ],
+    "Differntials": [
+      {"Date": "2019-11-04T23:10:00.933Z",
+       "Differntial": 73},
+      {"Date": "2019-12-04T23:10:00.933Z",
+      "Differntial": 71},
+      {"Date": "2019-13-04T23:10:00.933Z",
+       "Differntial": 71},
+      {"Date": "2019-14-04T23:10:00.933Z",
+      "Differntial": 68},
+      {"Date": "2019-19-05T23:10:00.933Z",
+      "Differntial": 69}
+    ],
+  "Handicap": [
+      {"Date": "2019-16-05T23:10:00.933Z",
+      "Handicap": 70.4}
+    ]
+  }
+
+]

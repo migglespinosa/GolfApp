@@ -11,6 +11,7 @@ import SearchShops from './SearchShops/SearchShops';
 import SetAppointments from './SetAppointments/SetAppointments';
 import UpcomingAppointments from './UpcomingAppointments/UpcomingAppointments';
 import Buttons from './Buttons';
+import Login from './Login/Login'
 import logo from './logo.svg';
 import './App.css';
 
@@ -18,6 +19,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
+      isLoggedin: false,
       display: null
     };
     this.setComponent = this.setComponent.bind(this);
@@ -68,12 +70,22 @@ class App extends Component{
     else if(this.state.display == "UpcomingAppointments"){
       body = <UpcomingAppointments/>
     }
-    return (
-      <div>
-        <Buttons setComponent={this.setComponent}/>
-        {body}
-      </div>
-    );
+
+    if(this.state.isLoggedin == true){
+      return (
+        <div>
+          <Buttons setComponent={this.setComponent}/>
+          {body}
+        </div>
+      );
+    }
+    else{
+      return (
+        <div>
+          <
+        </div>
+      );
+    }
   }
 }
 
