@@ -53,5 +53,14 @@ describe('Tests for <Calculate/>', () => {
     expect(wrapper.find('#CalculateHandicaps').exists()).toEqual(true);
   })
 
+  it("'Save Handicap' works properly", () => {
+    expect(wrapper.find('#CalculateHandicaps').exists()).toEqual(false);
+    const SaveButton = wrapper.find('#Save');
 
+    var i;
+    for(i = 0; i < 5; i++){
+      SaveButton.simulate('click');
+    }
+    expect(wrapper.find('#CalculateHandicaps').exists()).toEqual(true);
+  })
 });

@@ -15,7 +15,7 @@ function CreateList(props){
       <li
         key={props.differentials.indexOf(differential)}
       >
-        {differential.date} + {differential.differential}
+        On {differential.date}, {differential.differential}
       </li>
     </ul>
   ));

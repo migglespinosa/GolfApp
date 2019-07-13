@@ -1,5 +1,6 @@
 import React from 'react';
 import DifferentialDisplay from './DifferentialDisplay';
+import HandicapDisplay from './HandicapDisplay';
 import data from '../differentials.json';
 import logo from '../logo.svg';
 import '../App.css';
@@ -23,7 +24,8 @@ class Calculate extends React.Component {
       CourseRating: 0,
       Slope: 0,
       handicap: 0,
-      differentialArray: []
+      differentialArray: [],
+      handicapArray: []
     }
     this.calculateDiff = this.calculateDiff.bind(this);
     this.CalculateHandicap = this.CalculateHandicap.bind(this);
@@ -31,6 +33,7 @@ class Calculate extends React.Component {
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
     this.differentialArray = populateArray(data);
+    this.saveHandicap = this.saveHandicap.bind(this);
   }
 
   calculateDiff(event){
@@ -84,6 +87,16 @@ class Calculate extends React.Component {
     console.log(this.state.differentialArray);
   }
 
+  saveHandicap(){
+    const currentDate = new Date();
+    const handicapObject = {
+      date: currentDate.toLocaleString(),
+      handicap: this.state.handicap
+    }
+    this.setState({
+      handicapArray: [...this.state.handicapArray, handicapObject]
+    });
+  }
 
   render(){
     return(
@@ -91,8 +104,8 @@ class Calculate extends React.Component {
         <h1>Currently, your total handicap is {this.state.handicap}</h1>
         <h2>Your differential is: {this.state.display}</h2>
         <button type="button" id="Save" onClick={e => this.saveDifferential()}>
-          Save Button
-        </button>
+          Save Differential
+        </button> <br />
         <form onSubmit={this.calculateDiff}>
           <label>
             Score:
@@ -114,13 +127,17 @@ class Calculate extends React.Component {
           </label> <br />
           <input type="submit" value="Submit" />
         </form>
-          <DifferentialDisplay differentials={this.state.differentialArray}/>
+          <DifferentialDisplay differentials={this.state.differentialArray}/><br />
+          <HandicapDisplay handicaps={this.state.handicapArray}/>
         <div>
           {this.state.differentialArray.length >= 5 ? (
             <button type="button" key="Calculate" id="CalculateHandicaps" onClick={e => this.CalculateHandicap()}>CalculateHandicap</button>) : (
             "To Calculate your handicap, please save more than five differentials!"
           )}
         </div>
+        <button type="button" id="Save" onClick={e => this.saveHandicap()}>
+          Save Handicap
+        </button>
       </div>
     );
   }
