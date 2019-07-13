@@ -135,7 +135,7 @@ class Calculate extends React.Component {
             "To Calculate your handicap, please save more than five differentials!"
           )}
         </div>
-        <button type="button" id="Save" onClick={e => this.saveHandicap()}>
+        <button type="button" id="saveHandicap" onClick={e => this.saveHandicap()}>
           Save Handicap
         </button>
       </div>
