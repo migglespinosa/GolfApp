@@ -23,11 +23,18 @@ class App extends Component{
       display: null
     };
     this.setComponent = this.setComponent.bind(this);
+    this.setLogin = this.setLogin.bind(this);
   }
 
   setComponent(componentToBeSet){
     this.setState({
       display: componentToBeSet
+    });
+  }
+
+  setLogin(state){
+    this.setState({
+      isLoggedin: state
     });
   }
 
@@ -82,7 +89,7 @@ class App extends Component{
     else{
       return (
         <div>
-          <Login/>
+          <Login setLogin={this.setLogin}/>
         </div>
       );
     }

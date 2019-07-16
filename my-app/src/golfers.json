@@ -2,8 +2,8 @@
   {
     "Username": "Tiger",
     "Password": "Tiger1234",
-    "First Name": "Tiger",
-    "Last Name": "Woods",
+    "First_Name": "Tiger",
+    "Last_Name": "Woods",
     "Friends": [
       "Rory",
       "Brooks"
@@ -18,11 +18,11 @@
       {"Date": "2019-14-04T23:10:00.933Z",
       "Differntial": 70},
       {"Date": "2019-16-06T23:10:00.933Z",
-      "Differntial": 69},
+      "Differntial": 69}
     ],
   "Handicap": [
     {"Date": "2019-16-06T23:10:00.933Z",
-    "Handicap": 69},
+    "Handicap": 69}
     ]
   },
   {
@@ -60,14 +60,14 @@
       {"Date": "2019-16-05T23:10:00.933Z",
       "Handicap": 67.8},
       {"Date": "2019-16-06T23:10:00.933Z",
-      "Handicap": 66.8},
+      "Handicap": 66.8}
     ]
   },
   {
     "Username": "Rory",
     "Password": "Rory1234",
-    "First Name": "Rory",
-    "Last Name": "McIlroy",
+    "First_Name": "Rory",
+    "Last_Name": "McIlroy",
     "Friends": [
       "Tiger",
       "Brooks"

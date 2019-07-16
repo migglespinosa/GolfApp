@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Register from './Register';
 import logo from '../logo.svg';
+import data from '../golfers.json'
 import '../App.css';
 
 class Login extends Component{
@@ -12,16 +13,38 @@ class Login extends Component{
       onRegister: false
     }
     this.setRegister = this.setRegister.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.verify = this.verify.bind(this);
   }
 
-  verify(){
-
+  verify(event){
+    console.log("Login Attempted");
+    const filteredArray = data.filter(golfer => {
+      if(golfer.Username == this.state.Username && golfer.Password == this.state.Password){
+        return golfer
+      }
+    });
+    if(filteredArray.length == 1){
+      this.props.setLogin(true);
+    }
+    event.preventDefault();
   }
 
   setRegister(){
     this.setState(state => ({
       onRegister: !state.onRegister
     }));
+  }
+
+  handleUsernameChange(event){
+    console.log("Username Changed")
+    this.setState({Username: event.target.value});
+  }
+
+  handlePasswordChange(event){
+    console.log("Password Changed")
+    this.setState({Password: event.target.value});
   }
 
   render(){
@@ -33,14 +56,16 @@ class Login extends Component{
             <label>
               Username:
               <input type="text" id="Username"
-              value={this.state.Username}/>
+              value={this.state.Username || ''}
+              onChange={this.handleUsernameChange}/>
             </label> <br />
               Password:
               <input type="text" id="Password"
-              value={this.state.Password}/> <br />
+              value={this.state.Password || ''}
+              onChange={this.handlePasswordChange}/> <br />
             <input type="submit" value="Submit" />
-            <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
-          </form>
+            </form>
+          <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
         </div>
       )
     }
