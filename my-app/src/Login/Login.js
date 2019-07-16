@@ -22,10 +22,11 @@ class Login extends Component{
     console.log("Login Attempted");
     const filteredArray = data.filter(golfer => {
       if(golfer.Username == this.state.Username && golfer.Password == this.state.Password){
-        return golfer
+        return golfer;
       }
     });
     if(filteredArray.length == 1){
+      this.props.setGolfer(filteredArray[0])
       this.props.setLogin(true);
     }
     event.preventDefault();
@@ -64,7 +65,7 @@ class Login extends Component{
               value={this.state.Password || ''}
               onChange={this.handlePasswordChange}/> <br />
             <input type="submit" value="Submit" />
-            </form>
+          </form>
           <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
         </div>
       )

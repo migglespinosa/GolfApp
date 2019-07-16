@@ -20,10 +20,12 @@ class App extends Component{
     super(props);
     this.state = {
       isLoggedin: false,
-      display: null
+      display: null,
+      golfer: null,
     };
     this.setComponent = this.setComponent.bind(this);
     this.setLogin = this.setLogin.bind(this);
+    this.setGolfer = this.setGolfer.bind(this);
   }
 
   setComponent(componentToBeSet){
@@ -36,6 +38,13 @@ class App extends Component{
     this.setState({
       isLoggedin: state
     });
+  }
+
+  setGolfer(golfer){
+    console.log("Golfer Set")
+    this.setState({
+      golfer: golfer
+    })
   }
 
   render(){
@@ -82,6 +91,7 @@ class App extends Component{
       return (
         <div>
           <Buttons setComponent={this.setComponent}/>
+          <h1>Welcome {this.state.golfer.First_Name} {this.state.golfer.Last_Name} </h1>
           {body}
         </div>
       );
@@ -89,7 +99,7 @@ class App extends Component{
     else{
       return (
         <div>
-          <Login setLogin={this.setLogin}/>
+          <Login setLogin={this.setLogin} setGolfer={this.setGolfer}/>
         </div>
       );
     }

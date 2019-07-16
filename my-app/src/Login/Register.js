@@ -7,15 +7,11 @@ class Register extends Component{
 
   }
 
-  testFunction(){
-
-  }
-
   render(){
     return(
       <div>
         <h1>Register Page</h1>
-        <button type="button" id="RegisterButton" onClick={e => this.props.setRegister(e)}>
+        <button type="button" id="LoginReturnButton" onClick={e => this.props.setRegister(e)}>
           Login
         </button>
       </div>
