@@ -15,7 +15,12 @@ class Login extends Component{
     this.setRegister = this.setRegister.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.appendData = this.appendData.bind(this);
     this.verify = this.verify.bind(this);
+  }
+
+  appendData(golfer){
+    data.push(golfer)
   }
 
   verify(event){
@@ -50,7 +55,7 @@ class Login extends Component{
 
   render(){
     if(this.state.onRegister == false){
-    return(
+      return(
         <div>
           <h1> Login Page </h1>
           <form onSubmit={this.verify}>
@@ -71,7 +76,9 @@ class Login extends Component{
       )
     }
     else{
-      return(<Register setRegister={this.setRegister}/>);
+      return(
+        <Register setRegister={this.setRegister} data={data} append={this.appendData}/>
+      );
     }
   }
 }
