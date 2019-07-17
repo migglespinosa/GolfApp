@@ -5,6 +5,7 @@ class Register extends Component{
   constructor(props){
     super(props);
     this.state = {
+      UsernameExists: false,
       Username: null,
       Password: null,
       FirstName: null,
@@ -18,42 +19,59 @@ class Register extends Component{
   }
 
   addUser(event){
-    console.log("addUser executed")
     const newGolfer = {
       Username: this.state.Username,
       Password: this.state.Password,
       First_Name: this.state.FirstName,
       Last_Name: this.state.LastName
     }
-    this.props.append(newGolfer);
+
+    const result = this.props.append(newGolfer);
     event.preventDefault();
-    console.log(this.props.data)
+    console.log(result)
+    event.preventDefault();
+    if(result == "Username exists"){
+      this.setState({UsernameExists: true})
+      event.preventDefault();
+    }
+    else{
+      this.props.setRegister();
+      event.preventDefault();
+    }
+
+    event.preventDefault();
   }
 
   handleUsernameChange(event){
-    console.log("Username Changed")
     this.setState({Username: event.target.value});
   }
 
   handlePasswordChange(event){
-    console.log("Password Changed")
     this.setState({Password: event.target.value});
   }
 
   handleFirstNameChange(event){
-    console.log("FirstName Changed")
     this.setState({FirstName: event.target.value});
   }
 
   handleLastNameChange(event){
-    console.log("LastName Changed")
     this.setState({LastName: event.target.value});
   }
 
   render(){
+
+    let UsernameMessage;
+    if(this.state.UsernameExists == false){
+      UsernameMessage = <h1>Create a Username</h1>
+    }
+    else{
+      UsernameMessage = <h1>Username has been taken</h1>
+    }
+
     return(
       <div>
         <h1>Register Page</h1>
+          {UsernameMessage}
           <form onSubmit={this.addUser}>
             <label>
               Your Username:

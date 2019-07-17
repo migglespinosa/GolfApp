@@ -20,7 +20,16 @@ class Login extends Component{
   }
 
   appendData(golfer){
+
+    let count = data.length;
+    for(let i = 0; i < count; i++){
+      if(data[i].Username == golfer.Username){
+        return "Username exists"
+      }
+    }
     data.push(golfer)
+    console.log(data)
+    return "Username does not exist"
   }
 
   verify(event){
