@@ -40,7 +40,7 @@ class Main extends Component{
       body = <FriendRequests/>
     }
     else if(this.state.display == "Friends"){
-      body = <Friends/>
+      body = <Friends golfer={this.props.golfer}/>
     }
     else if(this.state.display == "HandicapProgress"){
       body = <HandicapProgress/>
