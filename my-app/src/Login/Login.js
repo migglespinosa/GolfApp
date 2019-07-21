@@ -70,12 +70,12 @@ class Login extends Component{
           <form onSubmit={this.verify}>
             <label>
               Username:
-              <input type="text" id="Username"
+              <input type="text" id="UsernameLogin"
               value={this.state.Username || ''}
               onChange={this.handleUsernameChange}/>
             </label> <br />
               Password:
-              <input type="text" id="Password"
+              <input type="text" id="PasswordLogin"
               value={this.state.Password || ''}
               onChange={this.handlePasswordChange}/> <br />
             <input type="submit" id="SubmitLogin" value="Submit" />

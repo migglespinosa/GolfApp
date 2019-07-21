@@ -8,7 +8,7 @@ describe('Testing <Login />', () => {
 
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(<App/>);
+    wrapper = mount(<App />);
   });
 
   it("SubmitLogin Button exists", () => {
@@ -16,9 +16,9 @@ describe('Testing <Login />', () => {
   })
 
   it("Logging in with 'Username: Tiger' and 'Password: Tiger1234' works", () => {
-    const UsernameWrapper = wrapper.find('#Username');
-    const PasswordWrapper = wrapper.find('#Password');
-    const LoginWrapper = wrapper.find('#SubmitLogin');
+    const UsernameWrapper = wrapper.find('#UsernameLogin').at(0);
+    const PasswordWrapper = wrapper.find('#PasswordLogin').at(0);
+    const LoginWrapper = wrapper.find('#SubmitLogin').at(0);
     //UsernameWrapper.simulate("keydown", Tiger);
     UsernameWrapper.simulate("change", {target: {value: "Tiger"}});
     PasswordWrapper.simulate("change", {target: {value: "Tiger1234"}});
