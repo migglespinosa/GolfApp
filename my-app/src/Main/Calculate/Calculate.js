@@ -1,9 +1,9 @@
 import React from 'react';
 import DifferentialDisplay from './DifferentialDisplay';
 import HandicapDisplay from './HandicapDisplay';
-import data from '../differentials.json';
-import logo from '../logo.svg';
-import '../App.css';
+import data from '../../differentials.json';
+import logo from '../../logo.svg';
+import '../../App.css';
 
 const populateArray = rounds => {
   console.log(rounds.length)
