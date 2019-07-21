@@ -78,7 +78,7 @@ class Login extends Component{
               <input type="text" id="Password"
               value={this.state.Password || ''}
               onChange={this.handlePasswordChange}/> <br />
-            <input type="submit" value="Submit" />
+            <input type="submit" id="SubmitLogin" value="Submit" />
           </form>
           <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
         </div>

@@ -25,6 +25,14 @@ describe('<App/>', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<App/>);
+    const UsernameWrapper = wrapper.find('#Username');
+    const PasswordWrapper = wrapper.find('#Password');
+    const LoginWrapper = wrapper.find('#SubmitLogin');
+    UsernameWrapper.simulate("change", {target: {value: "Tiger"}});
+    PasswordWrapper.simulate("change", {target: {value: "Tiger1234"}});
+    UsernameWrapper.update();
+    PasswordWrapper.update();
+    LoginWrapper.simulate('submit');
   });
 
   it('<Buttons/> exists', () => {
