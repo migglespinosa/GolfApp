@@ -4,6 +4,7 @@ import '../../App.css';
 
 function CreateList(props){
 
+  //Lists all the golfer's friends
   const friends = props.golfer.Friends.map(friend => (
     <ul id="differentialList">
       <li
