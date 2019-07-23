@@ -23,7 +23,11 @@ class Register extends Component{
       Username: this.state.Username,
       Password: this.state.Password,
       First_Name: this.state.FirstName,
-      Last_Name: this.state.LastName
+      Last_Name: this.state.LastName,
+      Friends: "",
+      Differntials: "",
+      Handicap: "",
+      Outings: ""
     }
 
     const result = this.props.append(newGolfer);

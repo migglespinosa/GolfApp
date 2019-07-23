@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../logo.svg';
 import '../../App.css';
 
-class UpcomingAppointments extends React.Component {
+class UpcomingOutings extends React.Component {
   render(){
     return(
       <div>
@@ -12,4 +12,4 @@ class UpcomingAppointments extends React.Component {
   }
 }
 
-export default UpcomingAppointments;
+export default UpcomingOutings;

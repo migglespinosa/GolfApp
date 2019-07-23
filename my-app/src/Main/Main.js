@@ -8,8 +8,8 @@ import Score from './Score/Score';
 import SearchCourses from './SearchCourses/SearchCourses';
 import SearchRanges from './SearchRanges/SearchRanges';
 import SearchShops from './SearchShops/SearchShops';
-import SetAppointments from './SetAppointments/SetAppointments';
-import UpcomingAppointments from './UpcomingAppointments/UpcomingAppointments';
+import SetOutings from './SetOutings/SetOutings';
+import UpcomingOutings from './UpcomingOutings/UpcomingOutings';
 import Buttons from './Buttons';
 
 class Main extends Component{
@@ -60,11 +60,11 @@ class Main extends Component{
     else if(this.state.display == "SearchShops"){
       body = <SearchShops/>
     }
-    else if(this.state.display == "SetAppointments"){
-      body = <SetAppointments/>
+    else if(this.state.display == "SetOutings"){
+      body = <SetOutings/>
     }
-    else if(this.state.display == "UpcomingAppointments"){
-      body = <UpcomingAppointments/>
+    else if(this.state.display == "UpcomingOutings"){
+      body = <UpcomingOutings/>
     }
 
     return(

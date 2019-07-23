@@ -23,6 +23,14 @@
   "Handicap": [
     {"Date": "2019-16-06T23:10:00.933Z",
     "Handicap": 69}
+  ],
+  "Outings": [
+    {"Date": "2019-16-09T23:10:00.933Z",
+    "Location": "Augusta"},
+    {"Date": "2019-16-10T23:10:00.933Z",
+    "Location": "Pebble Beach"},
+    {"Date": "2019-16-11T23:10:00.933Z",
+    "Location": "Bethpage Black"}
     ]
   },
   {
