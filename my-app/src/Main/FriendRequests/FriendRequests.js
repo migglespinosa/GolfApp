@@ -17,7 +17,7 @@ class FriendRequests extends React.Component {
     this.setState({Username: event.target.value});
   }
 
-  search(){
+  search(event){
     let exists;
     let count = data.length;
     for(let i = 0; i < count; i++){
@@ -25,15 +25,17 @@ class FriendRequests extends React.Component {
         exists = true;
       }
     }
-    if(exists == false){
-      this.setState({
-        NameExists: false
-      });
-    }
-    else{
+    if(exists == true){
       this.setState({
         NameExists: true
       });
+      event.preventDefault();
+    }
+    else{
+      this.setState({
+        NameExists: false
+      });
+      event.preventDefault();
     }
   }
 

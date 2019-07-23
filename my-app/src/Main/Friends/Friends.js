@@ -4,17 +4,17 @@ import '../../App.css';
 
 function CreateList(props){
 
+  if(props.golfer.Friends){
   //Lists all the golfer's friends
-  const friends = props.golfer.Friends.map(friend => (
-    <ul id="differentialList">
-      <li
-        key={props.golfer.Friends.indexOf(friend)}
-      >
-        {friend}
-      </li>
-    </ul>
-  ));
-  if(friends){
+    const friends = props.golfer.Friends.map(friend => (
+      <ul id="differentialList">
+        <li
+          key={props.golfer.Friends.indexOf(friend)}
+        >
+          {friend}
+        </li>
+      </ul>
+    ));
     return friends
   }
   else{

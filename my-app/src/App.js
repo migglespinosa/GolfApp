@@ -9,8 +9,8 @@ class App extends Component{
     super(props);
     this.state = {
       isLoggedin: false,
-      golfer: null,
     };
+    this.golfer = "";
     this.setLogin = this.setLogin.bind(this);
     this.setGolfer = this.setGolfer.bind(this);
   }
@@ -22,10 +22,7 @@ class App extends Component{
   }
 
   setGolfer(golfer){
-    console.log("Golfer Set")
-    this.setState({
-      golfer: golfer
-    })
+    this.golfer = golfer;
   }
 
   render(){
@@ -33,7 +30,7 @@ class App extends Component{
     if(this.state.isLoggedin == true){
       return (
         <div>
-          <Main golfer={this.state.golfer}/>
+          <Main golfer={this.golfer}/>
         </div>
       );
     }
