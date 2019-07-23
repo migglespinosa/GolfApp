@@ -37,7 +37,7 @@ class Main extends Component{
       body = <Calculate/>
     }
     else if(this.state.display == "FriendRequests"){
-      body = <FriendRequests/>
+      body = <FriendRequests golfer={this.props.golfer}/>
     }
     else if(this.state.display == "Friends"){
       body = <Friends golfer={this.props.golfer}/>
