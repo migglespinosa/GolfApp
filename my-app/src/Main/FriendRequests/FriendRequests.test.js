@@ -34,21 +34,40 @@ describe('Tests for <FriendRequests/>', () => {
 
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(<FriendRequests golfer={golfer}/>)
-  })
+    wrapper = mount(<FriendRequests golfer={golfer}/>);
+  });
 
-  it("Clicking on the Add Friend button adds golfers that exist in the database", () => {
-
+  it("Searching for a name that doesn't exist sets NameExists to 'false'", () => {
     const SearchUsername = wrapper.find('#SearchUsername');
     const SearchButton = wrapper.find('[type="submit"]');
-    //const SendFriendRequest = wrapper.find('#SendFriendRequest');
-
     SearchUsername.simulate("change", {target: {value: "Dustin"}});
     SearchButton.simulate('submit');
     expect(wrapper.state('NameExists')).toEqual(false);
+  })
+
+  it("Searching for a name that does exist and is not already a friend sets NameExists to 'true'", () => {
+    const SearchUsername = wrapper.find('#SearchUsername');
+    const SearchButton = wrapper.find('[type="submit"]');
     SearchUsername.simulate("change", {target: {value: "Rory"}});
     SearchButton.simulate('submit');
     expect(wrapper.state('NameExists')).toEqual(true);
   })
+
+  it("Searching for your own name sets NameExists to 'Yourself'", () => {
+    const SearchUsername = wrapper.find('#SearchUsername');
+    const SearchButton = wrapper.find('[type="submit"]');
+    SearchUsername.simulate("change", {target: {value: "Jordan"}});
+    SearchButton.simulate('submit');
+    expect(wrapper.state('NameExists')).toEqual("Yourself");
+  })
+
+  it("Searching for a name that does exist and is already a friend sets NameExists to 'AlreadyFriends'", () => {
+    const SearchUsername = wrapper.find('#SearchUsername');
+    const SearchButton = wrapper.find('[type="submit"]');
+    SearchUsername.simulate("change", {target: {value: "Tiger"}});
+    SearchButton.simulate('submit');
+    expect(wrapper.state('NameExists')).toEqual("AlreadyFriends");
+  })
+
 
 })
