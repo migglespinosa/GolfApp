@@ -26,11 +26,14 @@
   ],
   "Outings": [
     {"Date": "2019-16-09T23:10:00.933Z",
-    "Location": "Augusta"},
+    "Location": "Augusta",
+    "Participants": ["Brooks", "Tiger", "Rory"]},
     {"Date": "2019-16-10T23:10:00.933Z",
-    "Location": "Pebble Beach"},
+    "Location": "Pebble Beach",
+    "Participants": ["Brooks", "Tiger", "Rory"]},
     {"Date": "2019-16-11T23:10:00.933Z",
-    "Location": "Bethpage Black"}
+    "Location": "Bethpage Black",
+    "Participants": ["Brooks", "Tiger"]}
     ]
   },
   {
@@ -69,7 +72,18 @@
       "Handicap": 67.8},
       {"Date": "2019-16-06T23:10:00.933Z",
       "Handicap": 66.8}
-    ]
+    ],
+    "Outings": [
+      {"Date": "2019-16-09T23:10:00.933Z",
+      "Location": "Augusta",
+      "Participants": ["Brooks", "Tiger", "Rory"]},
+      {"Date": "2019-16-10T23:10:00.933Z",
+      "Location": "Pebble Beach",
+      "Participants": ["Brooks", "Tiger", "Rory"]},
+      {"Date": "2019-16-11T23:10:00.933Z",
+      "Location": "Bethpage Black",
+      "Participants": ["Brooks", "Tiger"]}
+      ]
   },
   {
     "Username": "Rory",
@@ -95,6 +109,17 @@
   "Handicap": [
       {"Date": "2019-16-05T23:10:00.933Z",
       "Handicap": 70.4}
+    ],
+    "Outings": [
+      {"Date": "2019-16-09T23:10:00.933Z",
+      "Location": "Augusta",
+      "Participants": ["Brooks", "Tiger", "Rory"]},
+      {"Date": "2019-16-10T23:10:00.933Z",
+      "Location": "Pebble Beach",
+      "Participants": ["Brooks", "Tiger", "Rory"]},
+      {"Date": "2019-16-10T23:10:00.933Z",
+      "Location": "Middlebury",
+      "Participants": ["Rory"]}
     ]
   },
   {
@@ -121,7 +146,8 @@
     "Handicap": [
       {"Date": "2019-16-05T23:10:00.933Z",
       "Handicap": 70.4}
-    ]
+    ],
+    "Outings": ""
   }
 
 ]

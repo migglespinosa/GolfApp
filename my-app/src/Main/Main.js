@@ -64,7 +64,7 @@ class Main extends Component{
       body = <SetOutings/>
     }
     else if(this.state.display == "UpcomingOutings"){
-      body = <UpcomingOutings/>
+      body = <UpcomingOutings golfer={this.props.golfer}/>
     }
 
     return(
