@@ -33,8 +33,8 @@ class Buttons extends Component{
 
     const components = ["Calculate", "FriendRequests", "Friends",
                       "HandicapProgress", "Map", "Score", "SearchCourses",
-                      "SearchRanges", "SearchShops", "SetAppointments",
-                      "UpcomingAppointments"];
+                      "SearchRanges", "SearchShops", "SetOutings",
+                      "UpcomingOutings"];
     const setComponent = this.props.setComponent;
     return (
       <div>

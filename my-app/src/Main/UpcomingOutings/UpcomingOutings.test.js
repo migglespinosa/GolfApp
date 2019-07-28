@@ -31,18 +31,18 @@ const golfer = {
     "Handicap": 69}
   ],
   Outings: [
-    {"Date": "2019-16-05T23:10:00.933Z",
-    "Location": "Augusta",
-    "Participants": ["Brooks"]},
-    {"Date": "2019-16-09T23:10:00.933Z",
-    "Location": "Augusta",
-    "Participants": ["Brooks", "Tiger", "Rory"]},
-    {"Date": "2019-16-10T23:10:00.933Z",
-    "Location": "Pebble Beach",
-    "Participants": ["Brooks", "Tiger", "Rory"]},
-    {"Date": "2019-16-11T23:10:00.933Z",
-    "Location": "Bethpage Black",
-    "Participants": ["Brooks", "Tiger"]}
+    {Date: "2019-16-05T23:10:00.933Z",
+    Location: "Augusta",
+    Participants: ["Brooks"]},
+    {Date: "2019-16-09T23:10:00.933Z",
+    Location: "Augusta",
+    Participants: ["Brooks", "Tiger", "Rory"]},
+    {Date: "2019-16-10T23:10:00.933Z",
+    Location: "Pebble Beach",
+    Participants: ["Brooks", "Tiger", "Rory"]},
+    {Date: "2019-16-11T23:10:00.933Z",
+    Location: "Bethpage Black",
+    Participants: ["Brooks", "Tiger"]}
     ]
   }
 }

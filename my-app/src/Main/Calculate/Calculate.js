@@ -79,8 +79,7 @@ class Calculate extends React.Component {
       date: currentDate.toLocaleString(),
       differential: this.state.display
     }
-    //var appended = this.state.differentialArray.concat(differentialObject);
-    //console.log(appended)
+
     this.setState({
       differentialArray: [...this.state.differentialArray, differentialObject]
     });
@@ -99,6 +98,7 @@ class Calculate extends React.Component {
   }
 
   render(){
+    console.log(this.state.differentialArray)
     return(
       <div>
         <h1>Currently, your total handicap is {this.state.handicap}</h1>
