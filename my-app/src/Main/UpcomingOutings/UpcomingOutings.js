@@ -22,7 +22,7 @@ class UpcomingOutings extends React.Component {
     let list;
     if(fututeOutings){
       list = (fututeOutings.map(outing => (
-        <ul>
+        <ul id="futureOutingsList">
           <li
             key={fututeOutings.indexOf(outing)}
           >

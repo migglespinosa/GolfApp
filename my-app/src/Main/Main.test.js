@@ -11,8 +11,8 @@ import Score from './Score/Score';
 import SearchCourses from './SearchCourses/SearchCourses';
 import SearchRanges from './SearchRanges/SearchRanges';
 import SearchShops from './SearchShops/SearchShops';
-import SetAppointments from './SetAppointments/SetAppointments';
-import UpcomingAppointments from './UpcomingAppointments/UpcomingAppointments';
+import SetOutings from './SetOutings/SetOutings';
+import UpcomingOutings from './UpcomingOutings/UpcomingOutings';
 import { configure, shallow, mount } from 'enzyme';
 import Main from './Main'
 
@@ -40,7 +40,21 @@ const golfer = {
   Handicap: [
     {"Date": "2019-16-05T23:10:00.933Z",
     "Handicap": 70.4}
-  ]
+  ],
+  Outings: [
+    {Date: "3/16/2019, 3:30:00 PM",
+    Location: "Augusta",
+    Participants: ["Brooks"]},
+    {Date: "9/16/2019, 3:30:00 PM",
+    Location: "Augusta",
+    Participants: ["Brooks", "Tiger", "Rory"]},
+    {Date: "10/16/2019, 3:30:00 PM",
+    Location: "Pebble Beach",
+    Participants: ["Brooks", "Tiger", "Rory"]},
+    {Date: "11/16/2019, 3:30:00 PM",
+    Location: "Bethpage Black",
+    Participants: ["Brooks", "Tiger"]}
+    ]
 }
 
 describe('<Main/>', () => {
@@ -90,18 +104,18 @@ describe('<Main/>', () => {
     expect(wrapper.state('display')).toEqual('FriendRequests');
   })
 
-  it("Clicking the SetAppointments button sets display to 'SetAppointments'", () => {
-    expect(wrapper.find('.SetAppointments').first().exists()).toEqual(true);
-    const SAWrapper = wrapper.find('.SetAppointments').first();
+  it("Clicking the SetOutings button sets display to 'SetOutings'", () => {
+    expect(wrapper.find('.SetOutings').first().exists()).toEqual(true);
+    const SAWrapper = wrapper.find('.SetOutings').first();
     SAWrapper.simulate('click');
-    expect(wrapper.state('display')).toEqual('SetAppointments');
+    expect(wrapper.state('display')).toEqual('SetOutings');
   })
 
-  it("Clicking the UpcomingAppointments button sets display to 'UpcomingAppointments'", () => {
-    expect(wrapper.find('.UpcomingAppointments').first().exists()).toEqual(true);
-    const UAWrapper = wrapper.find('.UpcomingAppointments').first();
+  it("Clicking the UpcomingOutings button sets display to 'UpcomingOutings'", () => {
+    expect(wrapper.find('.UpcomingOutings').first().exists()).toEqual(true);
+    const UAWrapper = wrapper.find('.UpcomingOutings').first();
     UAWrapper.simulate('click');
-    expect(wrapper.state('display')).toEqual('UpcomingAppointments');
+    expect(wrapper.state('display')).toEqual('UpcomingOutings');
   })
 
   it("Clicking the HandicapProgress button sets display to 'HandicapProgress'", () => {
