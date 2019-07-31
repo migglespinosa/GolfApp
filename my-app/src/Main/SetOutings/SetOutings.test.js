@@ -62,9 +62,9 @@ describe('Testing <SetOutings/>', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<SetOutings golfer={golfer}/>);
-    const LocationWrapper = wrapper.find('#Location');
-    const DateWrapper = wrapper.find('#Date');
-    const FriendWrapper = wrapper.find('#EnterFriend');
+    const LocationWrapper = wrapper.find('#location');
+    const DateWrapper = wrapper.find('#outing-date');
+    const FriendWrapper = wrapper.find('#friend');
     const HoleWrapper = wrapper.find('#Hole');
 
     const FriendButton = wrapper.find('#AddFriend');
@@ -99,8 +99,7 @@ describe('Testing <SetOutings/>', () => {
     expect(wrapper.state('inviteSent')).toEqual(true);
   });
 
-  it("The 'Plan another outing' button only appears once an invite is sent,
-  and clicking on the button sets inviteSent to false", () => {
+  it("The 'Plan another outing' button only appears once an invite is sent, and clicking on the button sets inviteSent to false", () => {
 
     expect(wrapper.state('inviteSent')).toEqual(false);
     expect(wrapper.find('#PlanAnotherOuting').exists()).toEqual(false);
