@@ -64,11 +64,12 @@ class SetOutings extends React.Component {
   //sendAnotherInvite resets all the fields for an invite to "" or empty
   sendAnotherInvite(event){
     console.log("sendAnotherInvite triggered");
-    this.setState({inviteSent: false,
+    this.setState((state) => ({
+                   inviteSent: !state.inviteSent,
                    friend: "",
                    friendsInvited: [],
                    location: "",
-                   date: ""});
+                   date: ""}));
     event.preventDefault();
   }
 
@@ -82,17 +83,22 @@ class SetOutings extends React.Component {
         <form onSubmit={this.sendInvite}>
           <label>
             Location:
-            <input type="text" id="Location"
+            <input type="text" id="location"
             value={location}
-            onChange={this.handleLocationChange} />
+            onChange={this.handleLocationChange}
+            required/>
           </label> <br />
           <label>
             Date:
-            <input type="date" name="outing-date"
+            <input type="date"
+            id="outing-date"
+            name="outing-date"
             value={date}
             onChange={this.handleDateChange}
-            min="2018-01-01" max="2020-12-31"/><br />
+            min="2018-01-01" max="2020-12-31"
+            required/><br />
           </label><br />
+          <input type="submit" id="sendInvite" value="Submit"/>
         </form>
       </div>
     );
@@ -146,23 +152,11 @@ class SetOutings extends React.Component {
     //sendAnotherInvite Button only appears once inviteSent is 'True'
     let sendAnotherInvite;
     if(inviteSent == true){
-      sendAnotherInvite = (<button type="button" onClick={e => this.sendAnotherInvite(e)}>
+      sendAnotherInvite = (<button type="button" id="PlanAnotherOuting" onClick={e => this.sendAnotherInvite(e)}>
                             Plan Another Outing! </button>);
     }
     else{
       sendAnotherInvite = null;
-    }
-
-    //Send Invite appears when Date, Location, and friendsInvited is not empty
-    //or empty
-    let sendInvite;
-    if((friendsInvited.length != 0) && (date !== "") && (location !== "") && (inviteSent == false)){
-      sendInvite = (<button type="button" onClick={e => this.sendInvite(e)}>
-                      Send Invite
-                    </button>)
-    }
-    else{
-      sendInvite = null;
     }
 
     return(
@@ -172,7 +166,6 @@ class SetOutings extends React.Component {
         {inviteForm}
         {addFriendForm}
         {friendsInvitedList}
-        {sendInvite}
         {sendAnotherInvite}
       </div>
     )

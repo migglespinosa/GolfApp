@@ -62,18 +62,18 @@ describe('Testing <SetOutings/>', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<SetOutings golfer={golfer}/>);
-    const LocationWrapper = wrapper.find('#location');
-    const DateWrapper = wrapper.find('#outing-date');
-    const FriendWrapper = wrapper.find('#friend');
-    const HoleWrapper = wrapper.find('#Hole');
-
-    const FriendButton = wrapper.find('#AddFriend');
-    const InviteButton = wrapper.find('#Invite');
   });
 
   it("You can invite people with whom you're already friends to an outing", () => {
 
     expect(wrapper.state('inviteSent')).toEqual(false);
+
+    const LocationWrapper = wrapper.find('#location');
+    const DateWrapper = wrapper.find('#outing-date');
+    const FriendWrapper = wrapper.find('#friend');
+    const HoleWrapper = wrapper.find('#Hole');
+    const FriendButton = wrapper.find('#AddFriend');
+    const InviteButton = wrapper.find('#sendInvite');
 
     LocationWrapper.simulate("change", {target: { value: "Augusta"} });
     LocationWrapper.update();
@@ -83,17 +83,17 @@ describe('Testing <SetOutings/>', () => {
     FriendWrapper.simulate("change", {target: { value: "Tiger"} });
     FriendButton.simulate('submit');
     expect(wrapper.state('isFriend')).toEqual(true);
-    expect(wrapper.state('friendsInvited')).toEqual(1);
+    expect(wrapper.state('friendsInvited')).toEqual(["Tiger"]);
 
     FriendWrapper.simulate("change", {target: { value: "Jordan"} });
     FriendButton.simulate('submit');
     expect(wrapper.state('isFriend')).toEqual(false);
-    expect(wrapper.state('friendsInvited')).toEqual(1);
+    expect(wrapper.state('friendsInvited')).toEqual(["Tiger"]);
 
     FriendWrapper.simulate("change", {target: { value: "Rory"} });
     FriendButton.simulate('submit');
     expect(wrapper.state('isFriend')).toEqual(true);
-    expect(wrapper.state('friendsInvited')).toEqual(2);
+    expect(wrapper.state('friendsInvited')).toEqual(["Tiger", "Rory"]);
 
     InviteButton.simulate('submit');
     expect(wrapper.state('inviteSent')).toEqual(true);
@@ -104,6 +104,13 @@ describe('Testing <SetOutings/>', () => {
     expect(wrapper.state('inviteSent')).toEqual(false);
     expect(wrapper.find('#PlanAnotherOuting').exists()).toEqual(false);
 
+    const LocationWrapper = wrapper.find('#location');
+    const DateWrapper = wrapper.find('#outing-date');
+    const FriendWrapper = wrapper.find('#friend');
+    const HoleWrapper = wrapper.find('#Hole');
+    const FriendButton = wrapper.find('#AddFriend');
+    const InviteButton = wrapper.find('#sendInvite');
+
     LocationWrapper.simulate("change", {target: { value: "Augusta"} });
     LocationWrapper.update();
     DateWrapper.simulate("change", {target: { value: "4/15/2020"} });
@@ -111,11 +118,12 @@ describe('Testing <SetOutings/>', () => {
     FriendWrapper.simulate("change", {target: { value: "Tiger"} });
     FriendButton.simulate('submit');
 
+    InviteButton.simulate('submit');
     expect(wrapper.state('inviteSent')).toEqual(true);
     expect(wrapper.find('#PlanAnotherOuting').exists()).toEqual(true);
     const PlanAnotherButton = wrapper.find('#PlanAnotherOuting');
     PlanAnotherButton.simulate('submit');
-
+    
     expect(wrapper.state('inviteSent')).toEqual(false);
     expect(wrapper.state('friend')).toEqual('');
     expect(wrapper.state('location')).toEqual('');
