@@ -37,27 +37,6 @@ class Map extends React.Component {
             Update Location
             </button>
         </article>
-
-        <h1>This is the Map Component</h1>
-        <LoadScript
-        id="script-loader"
-        googleMapsApiKey="AIzaSyBduZ-iDIEaq4AI6MrEoJb6_OV_9WXM1y8"
-      >
-        <GoogleMap
-          id='example-map'
-          mapContainerStyle={{
-            height: "400px",
-            width: "800px"
-          }}
-          zoom={7}
-          center={{
-            lat: -3.745,
-            lng: -38.523
-          }}
-        >
-          ...Your map components
-        </GoogleMap>
-        </LoadScript>
       </div>
     )
   }
