@@ -21,7 +21,7 @@ class Demo extends React.Component {
                 </tbody>
             </table>
         ) : (
-            <div>Getting the location data&hellip; </div>
+            <div>Getting the location data</div>
         );
     }
 }

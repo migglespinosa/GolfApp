@@ -34,7 +34,7 @@ class Map extends React.Component {
             onClick={getLocation}
             type="button"
           >
-            Get location
+            Update Location
             </button>
         </article>
 
