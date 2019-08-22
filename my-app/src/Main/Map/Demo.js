@@ -4,8 +4,36 @@ import { geolocated } from "react-geolocated";
 import { StandaloneSearchBox } from '@react-google-maps/api';
 import { KmlLayer } from '@react-google-maps/api';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import Geocode from "react-geocode";
 
 class Demo extends React.Component {
+    constructor(props){
+      super(props);
+        this.state = {
+          longitude: "",
+          latitude: ""
+        }
+
+    }
+
+    getLocation(event){
+      console.log("getLocation Clicked");
+
+      Geocode.setApiKey("AIzaSyC602BxQt0PqL-Dv-mzDS8i-8f6Q4aoVtA");
+
+      Geocode.enableDebug();
+
+      Geocode.fromAddress("Eiffel Tower").then(
+        response => {
+          const { lat, lng } = response.results[0].geometry.location;
+          console.log(lat, lng);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    }
+
     render() {
         return !this.props.isGeolocationAvailable ? (
             <div>Your browser does not support Geolocation</div>
@@ -81,6 +109,9 @@ class Demo extends React.Component {
                     </StandaloneSearchBox>
                   </GoogleMap>
                 </LoadScript>
+                <button type="button" id="saveHandicap" onClick={e => this.getLocation()}>
+                  Get Location
+                </button>
             </table>
         ) : (
             <div>Getting the location data&hellip; </div>
