@@ -10,20 +10,21 @@ class Demo extends React.Component {
     constructor(props){
       super(props);
         this.state = {
-          longitude: "",
-          latitude: ""
+          address: ""
         }
 
     }
 
+
     getLocation(event){
       console.log("getLocation Clicked");
 
+      console.log("address: ", this.state.address);
       Geocode.setApiKey("AIzaSyC602BxQt0PqL-Dv-mzDS8i-8f6Q4aoVtA");
 
       Geocode.enableDebug();
 
-      Geocode.fromAddress("Eiffel Tower").then(
+      Geocode.fromAddress(this.state.address).then(
         response => {
           const { lat, lng } = response.results[0].geometry.location;
           console.log(lat, lng);
@@ -84,7 +85,7 @@ class Demo extends React.Component {
                     <StandaloneSearchBox
                       onLoad={ref => this.searchBox = ref}
                       onPlacesChanged={
-                        () => console.log(this.searchBox.getPlaces())
+                        () => this.setState({address: this.searchBox.getPlaces()[0]["formatted_address"]})
                       }
                     >
                       <input
