@@ -8,9 +8,6 @@ import Friends from './Friends/Friends';
 import HandicapProgress from './HandicapProgress/HandicapProgress';
 import Map from './Map/Map';
 import Score from './Score/Score';
-import SearchCourses from './SearchCourses/SearchCourses';
-import SearchRanges from './SearchRanges/SearchRanges';
-import SearchShops from './SearchShops/SearchShops';
 import SetOutings from './SetOutings/SetOutings';
 import UpcomingOutings from './UpcomingOutings/UpcomingOutings';
 import { configure, shallow, mount } from 'enzyme';
@@ -123,26 +120,5 @@ describe('<Main/>', () => {
     const HPWrapper = wrapper.find('.HandicapProgress').first();
     HPWrapper.simulate('click');
     expect(wrapper.state('display')).toEqual('HandicapProgress');
-  })
-
-  it("Clicking the SearchCourses button sets display to 'SearchCourses'", () => {
-    expect(wrapper.find('.SearchCourses').first().exists()).toEqual(true);
-    const HPWrapper = wrapper.find('.SearchCourses').first();
-    HPWrapper.simulate('click');
-    expect(wrapper.state('display')).toEqual('SearchCourses');
-  })
-
-  it("Clicking the SearchRanges button sets display to 'SearchRanges'", () => {
-    expect(wrapper.find('.SearchRanges').first().exists()).toEqual(true);
-    const SRWrapper = wrapper.find('.SearchRanges').first();
-    SRWrapper.simulate('click');
-    expect(wrapper.state('display')).toEqual('SearchRanges');
-  })
-
-  it("Clicking the SearchShops button sets display to 'SearchShops'", () => {
-    expect(wrapper.find('.SearchShops').first().exists()).toEqual(true);
-    const SRWrapper = wrapper.find('.SearchShops').first();
-    SRWrapper.simulate('click');
-    expect(wrapper.state('display')).toEqual('SearchShops');
   })
 });

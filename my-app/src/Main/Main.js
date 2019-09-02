@@ -5,9 +5,6 @@ import Friends from './Friends/Friends';
 import HandicapProgress from './HandicapProgress/HandicapProgress';
 import Map from './Map/Map';
 import Score from './Score/Score';
-import SearchCourses from './SearchCourses/SearchCourses';
-import SearchRanges from './SearchRanges/SearchRanges';
-import SearchShops from './SearchShops/SearchShops';
 import SetOutings from './SetOutings/SetOutings';
 import UpcomingOutings from './UpcomingOutings/UpcomingOutings';
 import Buttons from './Buttons';
@@ -50,15 +47,6 @@ class Main extends Component{
     }
     else if(this.state.display == "Score"){
       body = <Score/>
-    }
-    else if(this.state.display == "SearchCourses"){
-      body = <SearchCourses/>
-    }
-    else if(this.state.display == "SearchRanges"){
-      body = <SearchRanges/>
-    }
-    else if(this.state.display == "SearchShops"){
-      body = <SearchShops/>
     }
     else if(this.state.display == "SetOutings"){
       body = <SetOutings golfer={this.props.golfer}/>
