@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Calculate from './Calculate/Calculate';
 import FriendRequests from './FriendRequests/FriendRequests';
+import Home from './Home/Home';
 import Friends from './Friends/Friends';
 import HandicapProgress from './HandicapProgress/HandicapProgress';
 import Map from './Map/Map';
@@ -28,7 +29,7 @@ class Main extends Component{
 
     let body;
     if(this.state.display == null){
-      body = <p>Null</p>
+      body = <Home golfer={this.props.golfer}/>
     }
     else if(this.state.display == "Calculate"){
       body = <Calculate/>
