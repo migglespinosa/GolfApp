@@ -137,7 +137,16 @@ describe('<Main/>', () => {
     expect(wrapper.find('#homeButton').first().exists()).toEqual(true);
   })
 
-  it("Clicking on the 'Home' button leads you back to the home page")
+  it("Clicking on the 'Home' button leads you back to the home page", () => {
+
+    const CalculateWrapper = wrapper.find('.Calculate').first();
+    CalculateWrapper.simulate('click');
+    expect(wrapper.find('#homeButton').first().exists()).toEqual(true);
+
+    const HomeButton = wrapper.find('#homeButton').first();
+    HomeButton.simulate('click');
+    expect(wrapper.state('display')).toEqual('Home');
+  })
 
 
 });

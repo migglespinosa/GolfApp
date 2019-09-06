@@ -14,9 +14,16 @@ class Main extends Component{
   constructor(props){
     super(props);
       this.state = {
-        display: null
+        display: 'Home'
       }
       this.setComponent = this.setComponent.bind(this);
+      this.setHome = this.setHome.bind(this);
+  }
+
+  setHome(){
+    this.setState({
+      display: 'Home'
+    });
   }
 
   setComponent(componentToBeSet){
@@ -28,7 +35,7 @@ class Main extends Component{
   render(){
 
     let body;
-    if(this.state.display == null){
+    if(this.state.display == 'Home'){
       body = <Home golfer={this.props.golfer}/>
     }
     else if(this.state.display == "Calculate"){
@@ -56,10 +63,11 @@ class Main extends Component{
       body = <UpcomingOutings golfer={this.props.golfer}/>
     }
 
-    //HomeButton displays whenever a user is not on the home page.
+    //HomeButton displays whenever a user is not on the home page. Clicking
+    //on it returns the user to the homepage.
     let homeButton;
-    if(this.state.display != null){
-      homeButton = <button id="homeButton">Return Home</button>
+    if(this.state.display != 'Home'){
+      homeButton = <button onClick={e => this.setHome()} id="homeButton">Return Home</button>
     }
     else{
       homeButton = null;
