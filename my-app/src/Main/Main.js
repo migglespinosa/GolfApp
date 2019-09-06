@@ -56,8 +56,18 @@ class Main extends Component{
       body = <UpcomingOutings golfer={this.props.golfer}/>
     }
 
+    //HomeButton displays whenever a user is not on the home page.
+    let homeButton;
+    if(this.state.display != null){
+      homeButton = <button id="homeButton">Return Home</button>
+    }
+    else{
+      homeButton = null;
+    }
+
     return(
       <div>
+        {homeButton}
         <h1>Welcome {this.props.golfer.First_Name} {this.props.golfer.Last_Name} </h1>
         <Buttons setComponent={this.setComponent}/>
         {body}

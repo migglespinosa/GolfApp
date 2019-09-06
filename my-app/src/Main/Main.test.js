@@ -121,4 +121,23 @@ describe('<Main/>', () => {
     HPWrapper.simulate('click');
     expect(wrapper.state('display')).toEqual('HandicapProgress');
   })
+
+  it("Clicking any button will display the 'Home' button'", () => {
+
+    const CalculateWrapper = wrapper.find('.Calculate').first();
+    CalculateWrapper.simulate('click');
+    expect(wrapper.find('#homeButton').first().exists()).toEqual(true);
+
+    const MapWrapper = wrapper.find('.Map').first();
+    MapWrapper.simulate('click');
+    expect(wrapper.find('#homeButton').first().exists()).toEqual(true);
+
+    const HPWrapper = wrapper.find('.HandicapProgress').first();
+    HPWrapper.simulate('click');
+    expect(wrapper.find('#homeButton').first().exists()).toEqual(true);
+  })
+
+  it("Clicking on the 'Home' button leads you back to the home page")
+
+
 });
