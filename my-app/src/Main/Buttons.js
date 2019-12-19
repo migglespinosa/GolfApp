@@ -1,20 +1,29 @@
 import React, {Component} from 'react';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
 
+const buttonsDisplay = {
+  //justifyContent: 'center'
+  textAlign: 'center'
+};
 
 function CreateButtons(props){
   const componentsList = Array.from(props.components)
   return(
-    <div id="buttonsDisplay">
-      {componentsList.map(component => (
-        <button
-          type="button"
-          key={component}
-          className={component.toString()}
-          onClick={e => props.setComponent(component)}
-        >
-          {component}
-        </button>
-      ))}
+    <div className="d-flex justify-content-center">
+      <ButtonGroup style={buttonsDisplay}>
+          {componentsList.map(component => (
+            <Button
+              variant="primary"
+              type="button"
+              key={component}
+              className={component.toString()}
+              onClick={e => props.setComponent(component)}
+            >
+              {component}
+            </Button>
+          ))}
+      </ButtonGroup>
     </div>
   );
 }

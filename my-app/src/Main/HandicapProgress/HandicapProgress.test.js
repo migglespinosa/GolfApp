@@ -62,9 +62,4 @@ describe('Tests for </HandicapProgress>', () => {
   beforeEach(() => {
     wrapper = mount(<HandicapProgress golfer={golfer}/>)
   })
-
-  it("Lists all of the golfer's friends", () => {
-    expect(wrapper.find('#friendsList').children()).toHaveLength(2);
-  })
-
 })
