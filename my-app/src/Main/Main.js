@@ -10,6 +10,22 @@ import SetOutings from './SetOutings/SetOutings';
 import UpcomingOutings from './UpcomingOutings/UpcomingOutings';
 import Buttons from './Buttons';
 
+const greeting = {
+  textAlign: 'center'
+}
+
+const homeStyle = {
+  /*
+  display: 'flex',
+  alignSelf: 'center',
+  justifyContent: 'center'
+  */
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+
 class Main extends Component{
   constructor(props){
     super(props);
@@ -48,7 +64,7 @@ class Main extends Component{
       body = <Friends golfer={this.props.golfer}/>
     }
     else if(this.state.display == "HandicapProgress"){
-      body = <HandicapProgress/>
+      body = <HandicapProgress golfer={this.props.golfer}/>
     }
     else if(this.state.display == "Map"){
       body = <Map/>
@@ -67,7 +83,7 @@ class Main extends Component{
     //on it returns the user to the homepage.
     let homeButton;
     if(this.state.display != 'Home'){
-      homeButton = <button onClick={e => this.setHome()} id="homeButton">Return Home</button>
+      homeButton = <button onClick={e => this.setHome()} style={homeStyle} id="homeButton">Return Home</button>
     }
     else{
       homeButton = null;
@@ -76,12 +92,13 @@ class Main extends Component{
     return(
       <div>
         {homeButton}
-        <h1>Welcome {this.props.golfer.First_Name} {this.props.golfer.Last_Name} </h1>
+        <h1 onClick={e => this.setHome()} style={greeting}>Welcome {this.props.golfer.First_Name} {this.props.golfer.Last_Name} </h1>
         <Buttons setComponent={this.setComponent}/>
         {body}
       </div>
     );
   }
 }
+
 
 export default Main;
