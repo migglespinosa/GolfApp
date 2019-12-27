@@ -1,0 +1,3 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const GOLFER_LOADING = "GOLFER_LOADING";
+export const SET_CURRENT_GOLFER = "SET_CURRENT_GOLFER";

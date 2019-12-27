@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
-import axios from 'axios';
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
 
 class Register extends Component{
   constructor(props){
@@ -31,8 +32,6 @@ class Register extends Component{
       outings: ""
     }
 
-    axios.post('http://localhost:5000/Golfers/login', newGolfer)
-    .then(res => console.log("res.data: ", res.data));
 
     const result = this.props.append(newGolfer);
     event.preventDefault();
@@ -116,4 +115,4 @@ class Register extends Component{
 }
 
 
-export default Register;
+export default connect(Register);
