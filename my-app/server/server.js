@@ -1,11 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const passport = require("passport");
 
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
+
+// Passport config
+require("./config/passport")(passport);
+
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +25,10 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
+
+
+// Passport middleware
+app.use(passport.initialize());
 
 const golferRouter = require('./routes/Golfers');
 

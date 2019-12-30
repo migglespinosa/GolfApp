@@ -1,46 +1,18 @@
 import React, { Component } from 'react';
-import Login from './Login/Login'
-import Main from './Main/Main'
+import {Provider} from 'react-redux';
+import MainLoginContainer from './MainLoginContainer'
 import logo from './logo.svg';
 import './App.css';
+import store from './Redux/store';
 
 class App extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      isLoggedin: false,
-    };
-    this.golfer = "";
-    this.setLogin = this.setLogin.bind(this);
-    this.setGolfer = this.setGolfer.bind(this);
-  }
-
-  setLogin(state){
-    this.setState({
-      isLoggedin: state
-    });
-  }
-
-  setGolfer(golfer){
-    this.golfer = golfer;
-  }
 
   render(){
-
-    if(this.state.isLoggedin == true){
-      return (
-        <div>
-          <Main golfer={this.golfer}/>
-        </div>
-      );
-    }
-    else{
-      return (
-        <div>
-          <Login setLogin={this.setLogin} setGolfer={this.setGolfer}/>
-        </div>
-      );
-    }
+    return(
+      <Provider store={store}>
+        <MainLoginContainer/>
+      </Provider>
+    )
   }
 }
 

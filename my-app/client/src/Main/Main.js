@@ -94,7 +94,7 @@ class Main extends Component{
     return(
       <div>
         {homeButton}
-        <h1 onClick={e => this.setHome()} style={greeting}>Welcome {this.props.golfer.First_Name} {this.props.golfer.Last_Name} </h1>
+        <h1 onClick={e => this.setHome()} style={greeting}>Welcome {this.props.golfer.first_name} {this.props.golfer.last_name} </h1>
         <Buttons setComponent={this.setComponent}/>
         {body}
       </div>

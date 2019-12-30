@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+import { connect, Provider } from "react-redux";
+import { registerGolfer } from "../Redux/actions/authActions";
 
 class Register extends Component{
   constructor(props){
@@ -31,12 +31,14 @@ class Register extends Component{
       handicap: "",
       outings: ""
     }
-
-
-    const result = this.props.append(newGolfer);
+    console.log("User added");
+    this.props.registerGolfer(newGolfer);
+    console.log("User added II");
+    //const result = this.props.append(newGolfer);
     event.preventDefault();
-    console.log(result)
+
     event.preventDefault();
+    /*
     if(result == "Username exists"){
       this.setState({UsernameExists: true})
       event.preventDefault();
@@ -45,6 +47,7 @@ class Register extends Component{
       this.props.setRegister();
       event.preventDefault();
     }
+    */
 
     event.preventDefault();
   }
@@ -76,43 +79,50 @@ class Register extends Component{
     }
 
     return(
-      <div>
-        <h1>Register Page</h1>
-          {UsernameMessage}
-          <form onSubmit={this.addUser}>
-            <label>
-              Your Username:
-              <input type="text" id="Username"
-              value={this.state.Username || ''}
-              onChange={this.handleUsernameChange}/>
-            </label> <br />
-            <label>
-              Your Password:
-              <input type="text" id="Password"
-              value={this.state.Password || ''}
-              onChange={this.handlePasswordChange}/> <br />
-            </label> <br />
-            <label>
-              Your First Name:
-              <input type="text" id="FirstName"
-              value={this.state.FirstName || ''}
-              onChange={this.handleFirstNameChange}/> <br />
-            </label>  <br />
-            <label>
-              Your Last Name:
-            </label>
-              <input type="text" id="LastName"
-              value={this.state.LastName || ''}
-              onChange={this.handleLastNameChange}/> <br />
-            <input type="submit" value="Create User" />
-          </form>
-        <button type="button" id="LoginReturnButton" onClick={e => this.props.setRegister(e)}>
-          Login
-        </button>
-      </div>
+        <div>
+          <h1>Register Page</h1>
+            {UsernameMessage}
+            <form onSubmit={this.addUser}>
+              <label>
+                Your Username:
+                <input type="text" id="Username"
+                value={this.state.Username || ''}
+                onChange={this.handleUsernameChange}/>
+              </label> <br />
+              <label>
+                Your Password:
+                <input type="text" id="Password"
+                value={this.state.Password || ''}
+                onChange={this.handlePasswordChange}/> <br />
+              </label> <br />
+              <label>
+                Your First Name:
+                <input type="text" id="FirstName"
+                value={this.state.FirstName || ''}
+                onChange={this.handleFirstNameChange}/> <br />
+              </label>  <br />
+              <label>
+                Your Last Name:
+              </label>
+                <input type="text" id="LastName"
+                value={this.state.LastName || ''}
+                onChange={this.handleLastNameChange}/> <br />
+              <input type="submit" value="Create User" />
+            </form>
+          <button type="button" id="LoginReturnButton" onClick={e => this.props.setRegister(e)}>
+            Login
+          </button>
+        </div>
     )
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
 
-export default connect(Register);
+export default connect(
+  mapStateToProps,
+  { registerGolfer }
+)(Register);

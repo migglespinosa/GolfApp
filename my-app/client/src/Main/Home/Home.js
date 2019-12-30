@@ -14,7 +14,11 @@ class Home extends React.Component{
   //findRecentHandicap sorts a golfer's handicap differentials by date,
   //and sets the handicap state to the most recent score.
   findRecentHandicap(){
-    const Handicap = this.props.golfer.Handicap;
+    console.log("findRecentHandicap this.props.golfer: ", this.props.golfer);
+    console.log("isEmpty(findRecentHandicap)", this.props.golfer.handicap.length == 0);
+    const handicap = this.props.golfer.handicap;
+
+
 
     /*
     console.log("Handicap :", new Date(Handicap[0].Handicap.Date).getTime())
@@ -23,12 +27,18 @@ class Home extends React.Component{
     });
     */
 
-    const SortedHandicap = Handicap.sort((a,b) =>
-    (a.Date > b.Date) ? -1 : ((b.Date > a.Date) ? 1 : 0));
+    let sortedHandicap;
+    if(handicap.length == 0){
+      sortedHandicap = 0;
+    }
+    else{
+      sortedHandicap = handicap.sort((a,b) =>
+      (a.Date > b.Date) ? -1 : ((b.Date > a.Date) ? 1 : 0));
+    }
 
-    console.log("SotedHandicap :", SortedHandicap)
+    console.log("SotedHandicap :", sortedHandicap)
     this.setState({
-      handicap: SortedHandicap[0].Handicap
+      handicap: sortedHandicap
     });
   }
 

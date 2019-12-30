@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Register from './Register';
+import { connect } from 'react-redux';
+import { loginGolfer } from '../Redux/actions/authActions';
 import logo from '../logo.svg';
 import data from '../golfers.json'
 import '../App.css';
@@ -12,44 +14,26 @@ class Login extends Component{
       Password: null,
       onRegister: false
     }
+    this.verify = this.verify.bind(this);
     this.setRegister = this.setRegister.bind(this);
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.appendData = this.appendData.bind(this);
-    this.verify = this.verify.bind(this);
-  }
-
-  appendData(golfer){
-
-    let count = data.length;
-    for(let i = 0; i < count; i++){
-      if(data[i].Username == golfer.Username){
-        return "Username exists"
-      }
-    }
-    data.push(golfer)
-    console.log(data)
-    return "Username does not exist"
   }
 
   verify(event){
-    console.log("Login Attempted");
-    const filteredArray = data.filter(golfer => {
-      if(golfer.Username == this.state.Username && golfer.Password == this.state.Password){
-        return golfer;
-      }
-    });
-    if(filteredArray.length == 1){
-      this.props.setGolfer(filteredArray[0])
-      this.props.setLogin(true);
+
+    const golfer = {
+      username: this.state.Username,
+      password: this.state.Password
     }
+    this.props.loginGolfer(golfer);
     event.preventDefault();
   }
 
   setRegister(){
     this.setState(state => ({
       onRegister: !state.onRegister
-    }));
+    }), console.log("onRegister: ", this.state.onRegister));
   }
 
   handleUsernameChange(event){
@@ -86,10 +70,17 @@ class Login extends Component{
     }
     else{
       return(
-        <Register setRegister={this.setRegister} data={data} append={this.appendData}/>
+        <Register setRegister={this.setRegister}/>
       );
     }
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+export default connect(
+  mapStateToProps,
+  { loginGolfer }
+)(Login);
