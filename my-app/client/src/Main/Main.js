@@ -57,7 +57,7 @@ class Main extends Component{
       body = <Home golfer={this.props.golfer}/>
     }
     else if(this.state.display == "Calculate"){
-      body = <Calculate/>
+      body = <Calculate golfer={this.props.golfer}/>
     }
     else if(this.state.display == "FriendRequests"){
       body = <FriendRequests golfer={this.props.golfer}/>

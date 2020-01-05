@@ -1,6 +1,8 @@
 import React from 'react';
 import data from '../../golfers';
 import '../../App.css';
+import { connect } from 'react-redux';
+import { searchUser } from '../../Redux/actions/authActions';
 
 
 class FriendRequests extends React.Component {
@@ -20,6 +22,19 @@ class FriendRequests extends React.Component {
 
   //Searches golfers.json to see whether the name entered into the searchBar exists.
   search(event){
+
+    const searchUser = this.props.searchUser(this.state.Username);
+    console.log("Freind Request searchUser: ", searchUser);
+
+    if(searchUser == true){
+      this.setState({NameExists: true})
+    }
+    else{
+      this.setState({NameExists: false})
+    }
+
+    event.preventDefault();
+    /*
     let exists;
     let count = data.length;
     for(let i = 0; i < count; i++){
@@ -64,7 +79,7 @@ class FriendRequests extends React.Component {
         NameExists: false
       });
       event.preventDefault();
-    }
+    }*/
   }
 
   render(){
@@ -123,4 +138,12 @@ class FriendRequests extends React.Component {
   }
 }
 
-export default FriendRequests;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { searchUser }
+)(FriendRequests);

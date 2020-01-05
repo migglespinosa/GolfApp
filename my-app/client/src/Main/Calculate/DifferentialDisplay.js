@@ -9,6 +9,8 @@ function CreateList(props){
   const sortedDifferentials = unsortedDifferentials.sort((a,b) =>
   (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0));
 
+  console.log("sortedDifferentials: ", sortedDifferentials);
+
   //Displaying differentials as an unordered list
   const differentials = props.differentials.map(differential => (
     <ul id="differentialList">

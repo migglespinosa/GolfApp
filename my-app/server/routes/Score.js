@@ -14,7 +14,7 @@ router.route('/add').post((req, res) => {
   const first_name = req.body.first_name;
   const last_name = req.body.last_name;
   const friends = req.body.friends ? req.body.friends : [];
-  const differntials = req.body.differntials ? req.body.differntials : [];
+  const differentials = req.body.differentials ? req.body.differentials : [];
   const handicap = req.body.handicap ? req.body.handicap : [];
   const outings = req.body.outings ? req.body.outings : [];
 

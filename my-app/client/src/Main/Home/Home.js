@@ -32,8 +32,9 @@ class Home extends React.Component{
       sortedHandicap = 0;
     }
     else{
-      sortedHandicap = handicap.sort((a,b) =>
+      const sorted = handicap.sort((a,b) =>
       (a.Date > b.Date) ? -1 : ((b.Date > a.Date) ? 1 : 0));
+      sortedHandicap = sorted.Handicap
     }
 
     console.log("SotedHandicap :", sortedHandicap)

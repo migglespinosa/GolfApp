@@ -1,16 +1,18 @@
 import React from 'react';
 import DifferentialDisplay from './DifferentialDisplay';
 import HandicapDisplay from './HandicapDisplay';
-import data from '../../differentials.json';
+import { connect } from 'react-redux';
+import { addDifferentials, addHandicaps} from '../../Redux/actions/authActions';
 import logo from '../../logo.svg';
 import '../../App.css';
 
 const populateArray = rounds => {
-  console.log(rounds.length)
+  console.log("rounds: ", rounds);
   const differentialArray = [];
-  //rounds.forEach(round => {
-  //  differentialArray.push();
-  //})
+  rounds.forEach(round => {
+    differentialArray.push(round);
+  })
+  console.log("differentialArray: ", differentialArray);
   return differentialArray;
 };
 
@@ -24,15 +26,15 @@ class Calculate extends React.Component {
       CourseRating: 0,
       Slope: 0,
       handicap: 0,
-      differentialArray: [],
-      handicapArray: []
+      differentialArray: populateArray(this.props.golfer.differentials),
+      handicapArray: this.props.golfer.handicap
     }
     this.calculateDiff = this.calculateDiff.bind(this);
     this.CalculateHandicap = this.CalculateHandicap.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCourseRatingChange = this.handleCourseRatingChange.bind(this);
     this.handleSlopeChange = this.handleSlopeChange.bind(this);
-    this.differentialArray = populateArray(data);
+    this.differentialArray = populateArray(this.props.golfer.differentials);
     this.saveHandicap = this.saveHandicap.bind(this);
   }
 
@@ -41,7 +43,7 @@ class Calculate extends React.Component {
     this.setState({
       display: Math.round(differential)
     });
-    console.log("differential" + this.state.display)
+    console.log("differentialArray", this.state.differentialArray)
     event.preventDefault();
   }
 
@@ -80,6 +82,8 @@ class Calculate extends React.Component {
       differential: this.state.display
     }
 
+    this.props.addDifferentials(differentialObject);
+
     this.setState({
       differentialArray: [...this.state.differentialArray, differentialObject]
     });
@@ -92,6 +96,7 @@ class Calculate extends React.Component {
       date: currentDate.toLocaleString(),
       handicap: this.state.handicap
     }
+    this.props.addHandicaps(handicapObject);
     this.setState({
       handicapArray: [...this.state.handicapArray, handicapObject]
     });
@@ -143,5 +148,14 @@ class Calculate extends React.Component {
   }
 }
 
-export default Calculate;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { addDifferentials, addHandicaps }
+)(Calculate);
+
 export {populateArray};

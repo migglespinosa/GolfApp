@@ -4,8 +4,58 @@ import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
   SET_CURRENT_GOLFER,
-  GOLFER_LOADING
+  GOLFER_LOADING,
+  UPDATE_DIFFERENTIAL,
+  UPDATE_HANDICAP
 } from "./types";
+
+
+//Search user
+export const searchUser = (user) => dispatch => {
+  const userObject = {username: user};
+  var exists;
+  axios.post("/Golfers/search", userObject)
+    .then(res => {
+      console.log("res.data.exists: ", res.data.exists)
+      exists = res.data.exists;
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+  console.log("exists: ", exists);
+  return exists;
+}
+
+// Add Differentials
+export const addDifferentials = (differential) => dispatch => {
+  console.log("addDifferntial called");
+
+  dispatch(updateDifferentials(differential));
+  axios.post("/Golfers/addDifferntial", differential)
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  );
+}
+
+// Add handicaps
+export const addHandicaps = (handicap) => dispatch => {
+
+  console.log("handicap: ", handicap)
+  dispatch(updateHandicaps(handicap));
+  axios.post("/Golfers/addHandicap", handicap)
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  );
+}
 
 
 // Register User
@@ -48,6 +98,21 @@ export const loginGolfer = userData => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+//Update user differntials
+export const updateDifferentials = differential => {
+  return{
+    type: UPDATE_DIFFERENTIAL,
+    payload: differential
+  }
+};
+
+export const updateHandicaps = handicap => {
+  return{
+    type: UPDATE_HANDICAP,
+    payload: handicap
+  }
 };
 
 // Set logged in user

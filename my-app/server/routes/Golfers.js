@@ -48,10 +48,11 @@ const password = req.body.password;
         const payload = {
           id: golfer.id,
           username: golfer.username,
+          password: golfer.password,
           first_name: golfer.first_name,
           last_name: golfer.last_name,
           friends: golfer.friends,
-          differntials: golfer.differntials,
+          differentials: golfer.differentials,
           handicap: golfer.handicap,
           outings: golfer.outings
         };
@@ -65,7 +66,7 @@ const password = req.body.password;
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: token
             });
           }
         );
@@ -101,7 +102,7 @@ router.route('/register').post((req, res) => {
   const first_name = req.body.first_name;
   const last_name = req.body.last_name;
   const friends = req.body.friends ? req.body.friends : [];
-  const differntials = req.body.differntials ? req.body.differntials : [];
+  const differentials = req.body.differentials ? req.body.differentials : [];
   const handicap = req.body.handicap ? req.body.handicap : [];
   const outings = req.body.outings ? req.body.outings : [];
 
@@ -111,7 +112,7 @@ router.route('/register').post((req, res) => {
     first_name,
     last_name,
     friends,
-    differntials,
+    differentials,
     handicap,
     outings
   });

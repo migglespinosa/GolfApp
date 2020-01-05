@@ -31,7 +31,11 @@ connection.once('open', () => {
 app.use(passport.initialize());
 
 const golferRouter = require('./routes/Golfers');
+const calculateRouter = require('./routes/Calculate');
+const friendsRouter = require('./routes/Friends');
 
+app.use('/Golfers', friendsRouter);
+app.use('/Golfers', calculateRouter);
 app.use('/Golfers', golferRouter);
 
 app.listen(port, () => {

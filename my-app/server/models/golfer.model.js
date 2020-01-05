@@ -34,7 +34,7 @@ const golferSchema = new Schema({
     required: false,
     unique: false,
   },
-  differntials: {
+  differentials: {
     type: Object,
     required: false,
     unique: false,
