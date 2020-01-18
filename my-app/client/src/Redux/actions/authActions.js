@@ -6,27 +6,73 @@ import {
   SET_CURRENT_GOLFER,
   GOLFER_LOADING,
   UPDATE_DIFFERENTIAL,
-  UPDATE_HANDICAP
+  UPDATE_HANDICAP,
+  UPDATE_REQUEST,
+  DECLINE_REQUEST,
+  ACCEPT_REQUEST
 } from "./types";
 
-
-//Search user
-export const searchUser = (user) => dispatch => {
-  const userObject = {username: user};
-  var exists;
-  axios.post("/Golfers/search", userObject)
+export const acceptRequest = (acceptObject) => dispatch => {
+  axios.post("/Golfers/acceptRequest", acceptObject)
     .then(res => {
-      console.log("res.data.exists: ", res.data.exists)
-      exists = res.data.exists;
+      console.log("acceptRequest")
+      dispatch(accept(acceptObject));
     })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response
       })
-    );
-  console.log("exists: ", exists);
-  return exists;
+    )
+}
+
+export const declineRequest = (declineObject) => dispatch => {
+  console.log("declineObject: ", declineObject)
+  axios.post("/Golfers/declineRequest", declineObject)
+    .then(res => {
+      dispatch(rejectRequest(declineObject.username));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response
+      })
+    )
+}
+
+
+//Add sentRequests and receivedRequests to current and target golfer
+export const addRequests = (userObject) => dispatch => {
+  return(
+    axios.post("/Golfers/sendRequest", userObject)
+      .then(res => {
+        dispatch(updateRequest(userObject));
+      })
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response
+        })
+      )
+  )
+}
+
+//Search user
+export const searchUser = (user) => dispatch => {
+  const userObject = {username: user};
+  return(
+    axios.post("/Golfers/search", userObject)
+      .then(res => {
+        console.log("res.data.exists", res.data.exists);
+        return res.data.exists;
+      })
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      )
+    )
 }
 
 // Add Differentials
@@ -56,7 +102,6 @@ export const addHandicaps = (handicap) => dispatch => {
     })
   );
 }
-
 
 // Register User
 export const registerGolfer = (userData) => dispatch => {
@@ -100,6 +145,28 @@ export const loginGolfer = userData => dispatch => {
     );
 };
 
+export const accept = user => {
+  console.log("accept");
+  return {
+    type: ACCEPT_REQUEST,
+    payload: user
+  }
+};
+
+export const rejectRequest = user => {
+  return {
+    type: DECLINE_REQUEST,
+    payload: user
+  }
+};
+
+export const updateRequest = request => {
+  return {
+    type: UPDATE_REQUEST,
+    payload: request
+  }
+};
+
 //Update user differntials
 export const updateDifferentials = differential => {
   return{
@@ -108,6 +175,7 @@ export const updateDifferentials = differential => {
   }
 };
 
+//Update Handicaps
 export const updateHandicaps = handicap => {
   return{
     type: UPDATE_HANDICAP,

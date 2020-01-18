@@ -11,11 +11,13 @@ class UpcomingOutings extends React.Component {
 
   render(){
 
+    console.log("UpcomingOutings outings: ", this.props.golfer.outings);
+
     // Destructure props into local variables to avoid typing `this.props` everytime
-    const Outings = this.props.golfer.Outings;
+    const Outings = this.props.golfer.outings;
 
     // Build a filtered array of outings that occur in the future
-    const fututeOutings = Outings.filter(outing => new Date(outing.Date).getTime() > this.state.date);
+    const fututeOutings = Outings.filter(outing => new Date(outing.date).getTime() > this.state.date);
 
     //Returns true or false depending on whether the outing
     //is past today's date
@@ -26,7 +28,7 @@ class UpcomingOutings extends React.Component {
           <li
             key={fututeOutings.indexOf(outing)}
           >
-            On {outing.Date}, you will play at {outing.Location}
+            On {outing.date}, you will play at {outing.location}
           </li>
         </ul>)));
     }
@@ -36,7 +38,7 @@ class UpcomingOutings extends React.Component {
 
     return(
       <div>
-        <h1>Hi {this.props.golfer.First_Name}</h1>
+        <h1>Upcoming outings</h1>
         {list}
       </div>
     )

@@ -30,7 +30,11 @@ const username = req.body.username;
 const password = req.body.password;
 
 // Find user by email
-  Golfer.findOne({ username }).then(golfer => {
+  Golfer.findOne({ username })
+    .populate('friends')
+    .populate('sentRequests')
+    .populate('receivedRequests')
+    .then(golfer => {
 
     // Check if golfer exists
     if (!golfer) {
@@ -43,18 +47,38 @@ const password = req.body.password;
     bcrypt.compare(password, golfer.password).then(isMatch => {
       if (isMatch) {
         console.log("login golfer: ", golfer);
+
+        const friends = golfer.friends.map(golfer => {
+          return {username: golfer.username,
+                  first_name: golfer.first_name,
+                  last_name: golfer.last_name}
+        })
+        const receivedRequests = golfer.receivedRequests.map(golfer => {
+          return {username: golfer.username,
+                  first_name: golfer.first_name,
+                  last_name: golfer.last_name}
+        })
+        const sentRequests = golfer.sentRequests.map(golfer => {
+          return {username: golfer.username,
+                  first_name: golfer.first_name,
+                  last_name: golfer.last_name}
+        })
+
+        console.log("receivedRequests ", receivedRequests)
         // User matched
         // Create JWT Payload
         const payload = {
-          id: golfer.id,
+          _id: golfer._id,
           username: golfer.username,
           password: golfer.password,
           first_name: golfer.first_name,
           last_name: golfer.last_name,
-          friends: golfer.friends,
+          friends: friends,
           differentials: golfer.differentials,
           handicap: golfer.handicap,
-          outings: golfer.outings
+          outings: golfer.outings,
+          receivedRequests: receivedRequests,
+          sentRequests: sentRequests
         };
 // Sign token
         jwt.sign(
@@ -105,6 +129,8 @@ router.route('/register').post((req, res) => {
   const differentials = req.body.differentials ? req.body.differentials : [];
   const handicap = req.body.handicap ? req.body.handicap : [];
   const outings = req.body.outings ? req.body.outings : [];
+  const receivedRequests = req.body.receivedRequests ? req.body.receivedRequests : [];
+  const sentRequests = req.body.sentRequests ? req.body.sentRequests : [];
 
   const newGolfer = new Golfer({
     username,
@@ -114,8 +140,12 @@ router.route('/register').post((req, res) => {
     friends,
     differentials,
     handicap,
-    outings
+    outings,
+    receivedRequests,
+    sentRequests
   });
+
+  console.log("newGolfer", newGolfer);
 
   Golfer.findOne({username}).then(golfer => {
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
 
 const golferSchema = new Schema({
   username: {
@@ -29,11 +29,7 @@ const golferSchema = new Schema({
     unique: false,
     trim: true
   },
-  friends: {
-    type: Object,
-    required: false,
-    unique: false,
-  },
+  friends: [{type: Schema.Types.ObjectId, ref: 'Golfer'}],
   differentials: {
     type: Object,
     required: false,
@@ -48,7 +44,9 @@ const golferSchema = new Schema({
     type: Object,
     required: false,
     unique: false,
-  }
+  },
+  sentRequests: [{type: Schema.Types.ObjectId, ref: 'Golfer'}],
+  receivedRequests: [{type: Schema.Types.ObjectId, ref: 'Golfer'}],
 }, {
   timestamps: true,
 });

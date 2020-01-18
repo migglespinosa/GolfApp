@@ -11,7 +11,10 @@ router.route('/addDifferntial').post((req, res) => {
   const token = req.headers.authorization;
   const differential = req.body;
   const decoded = jwt.verify(token, keys.secretOrKey);
-  const id = decoded.id;
+  const id = decoded._id;
+
+
+    console.log("decoded: ", decoded);
 
     Golfer.updateOne({_id: id}, { $push: {differentials: differential}}, function(err, raw) {
       if (err) {
@@ -26,7 +29,7 @@ router.route('/addHandicap').post((req, res) => {
   const token = req.headers.authorization;
   const handicap = req.body;
   const decoded = jwt.verify(token, keys.secretOrKey);
-  const id = decoded.id;
+  const id = decoded._id;
 
     Golfer.updateOne({_id: id}, { $push: {handicap: handicap}}, function(err, raw) {
       if (err) {

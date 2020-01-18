@@ -33,11 +33,12 @@ class Home extends React.Component{
     }
     else{
       const sorted = handicap.sort((a,b) =>
-      (a.Date > b.Date) ? -1 : ((b.Date > a.Date) ? 1 : 0));
-      sortedHandicap = sorted.Handicap
+      (a.handicap < b.handicap) ? -1 : ((b.handicap < a.handicap) ? 1 : 0));
+
+      sortedHandicap = sorted[0].handicap;
     }
 
-    console.log("SotedHandicap :", sortedHandicap)
+    console.log("friends :", this.props.golfer.friends);
     this.setState({
       handicap: sortedHandicap
     });

@@ -40,9 +40,8 @@ class Buttons extends Component{
 
   render(){
 
-    const components = ["Calculate", "FriendRequests", "Friends",
-                      "HandicapProgress", "Map", "Score", "SetOutings",
-                      "UpcomingOutings"];
+    const components = ["Calculate", "Friends",
+                      "HandicapProgress", "Map", "Score", "Outings"];
     const setComponent = this.props.setComponent;
     return (
       <div>

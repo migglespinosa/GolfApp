@@ -33,10 +33,12 @@ app.use(passport.initialize());
 const golferRouter = require('./routes/Golfers');
 const calculateRouter = require('./routes/Calculate');
 const friendsRouter = require('./routes/Friends');
+const outingsRouter = require('./routes/Outings');
 
 app.use('/Golfers', friendsRouter);
 app.use('/Golfers', calculateRouter);
 app.use('/Golfers', golferRouter);
+app.use('/Golfers', outingsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

@@ -29,7 +29,9 @@ class Register extends Component{
       friends: "",
       differntials: "",
       handicap: "",
-      outings: ""
+      outings: "",
+      sentRequests: "",
+      receivedRequests: "" 
     }
     console.log("User added");
     this.props.registerGolfer(newGolfer);

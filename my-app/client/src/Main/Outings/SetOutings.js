@@ -165,7 +165,7 @@ class SetOutings extends React.Component {
 
     return(
       <div>
-        <h1>This is the SetAppointments Component</h1>
+        <h1>Create an outing</h1>
         {invitationMessage}
         {inviteForm}
         {addFriendForm}

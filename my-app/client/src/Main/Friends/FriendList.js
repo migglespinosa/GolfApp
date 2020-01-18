@@ -1,17 +1,16 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 
 function CreateList(props){
 
-  if(props.golfer.Friends){
+  if(props.golfer.friends){
   //Lists all the golfer's friends
-    const friends = props.golfer.Friends.map(friend => (
+    const friends = props.golfer.friends.map(friend => (
       <ul>
         <li
-          key={props.golfer.Friends.indexOf(friend)}
+          key={props.golfer.friends.username}
         >
-          {friend}
+          {friend.username}
         </li>
       </ul>
     ));
@@ -23,7 +22,7 @@ function CreateList(props){
 }
 
 
-class Friends extends React.Component {
+class FriendList extends React.Component {
   constructor(props){
     super(props);
   }
@@ -31,11 +30,11 @@ class Friends extends React.Component {
   render(){
     return(
       <div>
-        <h1>Your friends include:</h1>
+        <h3>Your friends include:</h3>
         <CreateList id="friendsList" golfer={this.props.golfer}/>
       </div>
     )
   }
 }
 
-export default Friends;
+export default FriendList;
