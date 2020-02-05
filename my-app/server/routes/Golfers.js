@@ -9,7 +9,6 @@ const validateLoginInput = require("../validation/login");
 
 let Golfer = require('../models/golfer.model');
 
-
 router.route('/').get((req, res) => {
   Golfer.find()
     .then(golfers => res.json(golfers))
@@ -34,6 +33,8 @@ const password = req.body.password;
     .populate('friends')
     .populate('sentRequests')
     .populate('receivedRequests')
+    .populate('pendingOutings')
+    .populate('confirmedOutings')
     .then(golfer => {
 
     // Check if golfer exists
@@ -63,8 +64,24 @@ const password = req.body.password;
                   first_name: golfer.first_name,
                   last_name: golfer.last_name}
         })
+        const pendingOutings = golfer.pendingOutings.map(outing => {
+          return {id: outing._id,
+                  creator: outing.creator,
+                  pending: outing.pending,
+                  date: outing.date,
+                  location: outing.location,
+                  participants: outing.participants}
+        })
+        const confirmedOutings = golfer.confirmedOutings.map(outing => {
+          return {id: outing._id,
+                  creator: outing.creator,
+                  pending: outing.pending,
+                  date: outing.date,
+                  location: outing.location,
+                  particpants: outing.particpants}
+        })
 
-        console.log("receivedRequests ", receivedRequests)
+
         // User matched
         // Create JWT Payload
         const payload = {
@@ -76,7 +93,8 @@ const password = req.body.password;
           friends: friends,
           differentials: golfer.differentials,
           handicap: golfer.handicap,
-          outings: golfer.outings,
+          pendingOutings: pendingOutings,
+          confirmedOutings: confirmedOutings,
           receivedRequests: receivedRequests,
           sentRequests: sentRequests
         };
@@ -128,7 +146,8 @@ router.route('/register').post((req, res) => {
   const friends = req.body.friends ? req.body.friends : [];
   const differentials = req.body.differentials ? req.body.differentials : [];
   const handicap = req.body.handicap ? req.body.handicap : [];
-  const outings = req.body.outings ? req.body.outings : [];
+  const confirmedOutings = req.body.confirmedOutings ? req.body.confirmedOutings : [];
+  const pendingOutings= req.body.pendingOutings ? req.body.pendingOutings : [];
   const receivedRequests = req.body.receivedRequests ? req.body.receivedRequests : [];
   const sentRequests = req.body.sentRequests ? req.body.sentRequests : [];
 
@@ -140,7 +159,8 @@ router.route('/register').post((req, res) => {
     friends,
     differentials,
     handicap,
-    outings,
+    pendingOutings,
+    confirmedOutings,
     receivedRequests,
     sentRequests
   });

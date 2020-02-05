@@ -38,7 +38,7 @@ const outingsRouter = require('./routes/Outings');
 app.use('/Golfers', friendsRouter);
 app.use('/Golfers', calculateRouter);
 app.use('/Golfers', golferRouter);
-app.use('/Golfers', outingsRouter);
+app.use('/Outings', outingsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

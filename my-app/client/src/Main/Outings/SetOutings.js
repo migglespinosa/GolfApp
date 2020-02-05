@@ -2,11 +2,16 @@ import React from 'react';
 import logo from '../../logo.svg';
 import '../../App.css';
 
+import { connect } from 'react-redux';
+import { searchUser, addPendingOuting } from '../../Redux/actions/authActions';
+
+
 class SetOutings extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       friendsInvited: [],
+      friendsInvitedIds: [],
       inviteSent: false,
       isFriend: null,
       friend: "",
@@ -25,17 +30,19 @@ class SetOutings extends React.Component {
   //friendsInvited
   AddFriend(event){
 
-    if(!(this.props.golfer.Friends.includes(this.state.friend))){
+    if(!(this.props.golfer.friends.filter(friend => friend.username === this.state.friend).length > 0)){
       this.setState({
         isFriend: false
       });
     }
     else{
-      console.log("Friend Added");
-      this.setState({
-        isFriend: true,
-        friendsInvited: [...this.state.friendsInvited, this.state.friend]
-      });
+      this.props.searchUser(this.state.friend).then(res => {
+        this.setState({
+          isFriend: true,
+          friendsInvited: [...this.state.friendsInvited, this.state.friend],
+          friendsInvitedIds: [...this.state.friendsInvitedIds, res.id]
+        });
+      })
     }
     event.preventDefault();
   }
@@ -56,7 +63,29 @@ class SetOutings extends React.Component {
   //TEMPORARY: Since a server hasn't been purchased yet, sendInvite will only
   //set inviteSent to true
   sendInvite(event){
-    console.log("sendInvite triggered");
+
+    const participants = this.state.friendsInvitedIds.map(participant => {
+      return {
+        participant: participant,
+        confirmed: false
+      }
+    })
+
+    participants.push({
+      participant: this.props.golfer._id,
+      confirmed: true
+    })
+
+    const outing = {
+      creator: this.props.golfer._id,
+      pending: true,
+      location: this.state.location,
+      date: this.state.date,
+      participants: participants
+    }
+
+    this.props.addPendingOuting(outing);
+
     this.setState((state) => ({inviteSent: !state.inviteSent}));
     event.preventDefault();
   }
@@ -80,6 +109,7 @@ class SetOutings extends React.Component {
     console.log("second")
     console.log("friendsInvited render: ", this.state.friendsInvited);
     console.log("inviteSent render: ", this.state.inviteSent);
+    console.log("this.state.friendsInvitedIds: ", this.state.friendsInvitedIds)
 
     //inviteForm allows you to select a date and golf course for a future outing.
     const inviteForm = (
@@ -176,4 +206,12 @@ class SetOutings extends React.Component {
   }
 }
 
-export default SetOutings;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { searchUser, addPendingOuting}
+)(SetOutings);

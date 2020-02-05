@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+let Outing = require('./outing.model');
 
 const golferSchema = new Schema({
   username: {
@@ -40,11 +41,8 @@ const golferSchema = new Schema({
     required: false,
     unique: false,
   },
-  outings: {
-    type: Object,
-    required: false,
-    unique: false,
-  },
+  pendingOutings: [{type: Schema.Types.ObjectId, ref: 'Outing'}],
+  confirmedOutings: [{type: Schema.Types.ObjectId, ref: 'Outing'}],
   sentRequests: [{type: Schema.Types.ObjectId, ref: 'Golfer'}],
   receivedRequests: [{type: Schema.Types.ObjectId, ref: 'Golfer'}],
 }, {

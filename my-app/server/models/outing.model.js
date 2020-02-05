@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+let Golfer = require('./golfer.model');
+
 const outingSchema = new Schema({
+  creator: {type: Schema.Types.ObjectId, ref: 'Golfer'},
+  pending: {
+    type: Boolean,
+    required: true
+  },
   date: {
     type: String,
     required: true
@@ -10,7 +17,8 @@ const outingSchema = new Schema({
     type: String,
     required: true
   },
-  participants: [{type: Schema.Types.ObjectId, ref: 'Golfer'}]
+  participants: [{participant: {type: Schema.Types.ObjectId, ref: 'Golfer'},
+                  confirmed: {type: Boolean}}]
 })
 
 const Outing = mongoose.model('Outing', outingSchema);

@@ -33,9 +33,9 @@ class FriendRequests extends React.Component {
   //Searches golfers.json to see whether the name entered into the searchBar exists.
   search(event){
 
-    this.props.searchUser(this.state.Username).then(exists => {
+    this.props.searchUser(this.state.Username).then(res => {
       this.setState({
-        NameExists: exists
+        NameExists: res.exists
       })
     })
 

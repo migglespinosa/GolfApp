@@ -18,8 +18,6 @@ class MainLoginContainer extends Component{
   }
 
 
-
-
   setLogin(state){
     this.setState({
       isLoggedin: this.props.auth.isAuthenticated ? true : false

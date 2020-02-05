@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../logo.svg';
 import '../../App.css';
+import { searchUser } from '../../Redux/actions/authActions';
 
 
 class UpcomingOutings extends React.Component {
@@ -11,13 +12,12 @@ class UpcomingOutings extends React.Component {
 
   render(){
 
-    console.log("UpcomingOutings outings: ", this.props.golfer.outings);
-
     // Destructure props into local variables to avoid typing `this.props` everytime
-    const Outings = this.props.golfer.outings;
+    const Outings = this.props.golfer.confirmedOutings;
 
     // Build a filtered array of outings that occur in the future
     const fututeOutings = Outings.filter(outing => new Date(outing.date).getTime() > this.state.date);
+
 
     //Returns true or false depending on whether the outing
     //is past today's date

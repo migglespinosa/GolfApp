@@ -30,8 +30,10 @@ class Register extends Component{
       differntials: "",
       handicap: "",
       outings: "",
+      pendingOutings: "",
+      confirmedOutings: "",
       sentRequests: "",
-      receivedRequests: "" 
+      receivedRequests: ""
     }
     console.log("User added");
     this.props.registerGolfer(newGolfer);

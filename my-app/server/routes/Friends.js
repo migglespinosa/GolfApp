@@ -10,7 +10,8 @@ router.route('/search').post((req, res) => {
     .then(golfer => {
 
       if(golfer){
-        res.send({exists: true});
+        res.send({exists: true,
+                  id: golfer._id});
       }
       else{
         res.send({exists: false});

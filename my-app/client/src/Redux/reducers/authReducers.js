@@ -5,7 +5,8 @@ import {
   UPDATE_HANDICAP,
   UPDATE_REQUEST,
   DECLINE_REQUEST,
-  ACCEPT_REQUEST
+  ACCEPT_REQUEST,
+  ADD_PENDING_OUTING
 } from "../actions/types";
 const isEmpty = require("is-empty");
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   user: {},
   loading: false,
 }
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_GOLFER:
@@ -79,7 +81,7 @@ export default function(state = initialState, action) {
           receivedRequests: filteredRequests
         })
       };
-      
+
     case ACCEPT_REQUEST:
       const newFriends = state.user.friends;
       newFriends.push(action.payload);
@@ -91,13 +93,24 @@ export default function(state = initialState, action) {
         }
       });
 
-      console.log("receivedRequestsAccepted: ", receivedRequestsAccepted)
-
       return {
         ...state,
         user: Object.assign({}, state.user, {
           receivedRequests: filteredRequestsAccepted,
           friends: newFriends
+        })
+      }
+    case ADD_PENDING_OUTING:
+
+
+      const newPendingOutings = state.user.pendingOutings;
+      newPendingOutings.push(action.payload);
+      console.log("newPendingOutings: ", newPendingOutings);
+
+      return {
+        ...state,
+        user: Object.assign({}, state.user, {
+          pendingOutings: newPendingOutings,
         })
       }
     default:
