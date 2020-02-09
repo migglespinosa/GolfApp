@@ -8,7 +8,6 @@ let Outing = require('../models/outing.model');
 
 
 const isPending = function(participant, index, array){
-  console.log("isPending participant.confirmed: ", participant.confirmed)
   return participant.confirmed == false
 }
 
@@ -63,39 +62,88 @@ router.route('/GolferPending/:id').get((req, res) =>{
     .catch(err => res.status(400).json('Error!: ' + err));
 });
 
-/*
-router.route('/:id').put((req, res) => {
-
-  Outing.findById(req.params.id)
-    .populate("participants.participant")
-    .then(outing => {
-      res.send(outing)
-    })
-    .catch(err => res.status(400).json('Error!: ' + err));
-});
-*/
-
-router.route('/:id').put((req, res) => {
+router.route('/accept/:id').put((req, res) => {
 
   Outing.findOneAndUpdate({_id: req.params.id, participants:
     {$elemMatch: {_id: req.body.participantId}}},
     {$set: {'participants.$.confirmed': true}},
     {new: true})
     .then(outing => {
-      console.log("outing activated")
-      console.log("!outing.particpants.some(isPending): ", !outing.participants.some(isPending))
       if(!outing.participants.some(isPending)){
         Outing.findOneAndUpdate({_id: req.params.id}, {$set: {pending: false}}, function(err, raw) {
           if (err) {
             res.send(err);
           }
         })
+
+        outing.participants.forEach(participant => {
+          console.log("participant: ", participant.participant);
+          Golfer.findOneAndUpdate({_id: participant.participant}, { $push: {confirmedOutings: req.params.id}}, function(err, raw) {
+            if (err) {
+              res.send(err);
+            }
+          })
+          Golfer.updateOne({_id: participant.participant}, { $pull: {pendingOutings: req.params.id}}, function(err, raw) {
+            if (err) {
+              res.send(err);
+            }
+            console.log("deleted")
+          })
+        })
       }
-      res.send(outing)
+
+      res.send(outing);
     })
     .catch(err => res.status(400).json('Error!: ' + err));
 
 });
+
+router.route('/decline/:id').put((req, res) => {
+
+  Outing.findOneAndUpdate({_id: req.params.id},
+    {$pull: {participants: {_id: req.body.participantId}}},
+    {new: true})
+    .then(outing => {
+      if(!outing.participants.some(isPending)){
+        Outing.findOneAndUpdate({_id: req.params.id}, {$set: {pending: false}}, function(err, raw) {
+          if (err) {
+            res.send(err);
+          }
+        })
+
+        outing.participants.forEach(participant => {
+          console.log("participant: ", participant.participant);
+          Golfer.findOneAndUpdate({_id: participant.participant}, { $push: {confirmedOutings: req.params.id}}, function(err, raw) {
+            if (err) {
+              res.send(err);
+            }
+          })
+
+          Golfer.updateOne({_id: participant.participant}, { $pull: {pendingOutings: req.params.id}}, function(err, raw) {
+            if (err) {
+              res.send(err);
+            }
+          })
+        })
+
+      }
+      res.send(outing)
+    })
+    .catch(err => res.status(400).json('Error!: ' + err));
+});
+
+router.route('/Confirmed/:id').get((req, res) => {
+
+  Golfer.findById(req.params.id)
+    .populate("confirmedOutings")
+    .then(golfer => {
+      res.send(golfer.confirmedOutings)
+    })
+    .catch(err => res.status(400).json('Error!: ' + err));
+
+});
+
+
 
 router.route('/').get((req, res) => {
 

@@ -12,9 +12,7 @@ class PendingOutingsDetails extends React.Component {
   }
 
   componentDidMount(){
-
-    console.log("this.props.outing ", this.props.outing);
-
+    
     axios.get("Outings/" + this.props.outing)
     .then(res => {
       console.log("res");

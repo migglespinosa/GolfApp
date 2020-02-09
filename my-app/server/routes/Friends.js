@@ -27,9 +27,11 @@ router.route('/sendRequest').post((req, res) => {
   const id = decoded._id;
   const username = req.body.username;
 
+  //console.log("username: ", username);
 
   Golfer.findOne({ username })
     .then(golfer => {
+      console.log("golfer._id: ", golfer._id);
       Golfer.updateOne({_id: id}, { $push: {sentRequests: golfer._id}}, function(err, raw) {
         if (err) {
           res.send(err);

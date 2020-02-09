@@ -15,8 +15,8 @@ class InvitedOutings extends React.Component {
       date: new Date()
     }
     this.acceptOuting = this.acceptOuting.bind(this);
+    this.declineOuting = this.declineOuting.bind(this);
     this.isConfirmed = this.isConfirmed.bind(this);
-    //this.declineOuting = this.declineOuting.bind(this);
   }
 
   componentDidMount(){
@@ -41,9 +41,6 @@ class InvitedOutings extends React.Component {
     });
   }
 
-
-
-
   acceptOuting(outingId){
 
     const currentOuting = this.state.outings.filter(outing => {
@@ -65,15 +62,42 @@ class InvitedOutings extends React.Component {
       }
     })
 
-    
 
-    axios.put("Outings/"+outingId, {participantId: participantId}).
+
+    axios.put("Outings/accept/"+outingId, {participantId: participantId}).
     then(res => {
       this.setState({
         outings: filteredOutings
       })
+    })
+  }
 
+  declineOuting(outingId){
 
+    const currentOuting = this.state.outings.filter(outing => {
+      if(outing._id == outingId){
+        return outing;
+      }
+    })
+
+    const filteredOutings = this.state.outings.filter(outing => {
+      if(outing._id  != outingId){
+        return outing;
+      }
+    })
+
+    let participantId;
+    currentOuting[0].participants.forEach(participant => {
+      if(participant.participant == this.props.id){
+        participantId = participant._id
+      }
+    })
+
+    axios.put("Outings/decline/"+outingId, {participantId: participantId}).
+    then(res => {
+      this.setState({
+        outings: filteredOutings
+      })
     })
   }
 
@@ -85,17 +109,14 @@ class InvitedOutings extends React.Component {
   render(){
 
     const Outings = this.state.outings;
-    console.log("InvitedOutings: ", Outings);
 
     let invitedOutings, invitedOutingsPending;
     if(Outings != null){
       invitedOutings = Outings.filter(outing => new Date(outing.date).getTime() > this.state.date);
       invitedOutingsPending = invitedOutings.filter(outing => {
-        console.log("outing.participants.some(this.isConfirmed): ", outing.participants.some(this.isConfirmed))
-        if(outing.participants.some(this.isConfirmed) == false){
+        if(outing.participants.some(this.isConfirmed) == false && outing.pending == true){
           return outing
         }})
-      console.log("invitedOutingsPending: ", invitedOutingsPending)
     }
     else{
       invitedOutings = null;
@@ -111,7 +132,7 @@ class InvitedOutings extends React.Component {
           >
              to play at {outing.location} on {outing.date} id: {outing._id}
              <button onClick={() => this.acceptOuting(outing._id)}>Accept</button>
-             <button /*onClick={() =>}*/>Decline</button>
+             <button onClick={() => this.declineOuting(outing._id)}>Decline</button>
           </li>
         </ul>)));
     }
