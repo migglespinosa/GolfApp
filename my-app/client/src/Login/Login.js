@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Register from './Register';
+import {Container, Row, Col} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { loginGolfer } from '../Redux/actions/authActions';
 import logo from '../logo.svg';
@@ -50,21 +51,33 @@ class Login extends Component{
     if(this.state.onRegister == false){
       return(
         <div>
-          <h1> Login Page </h1>
-          <form onSubmit={this.verify}>
-            <label>
-              Username:
-              <input type="text" id="UsernameLogin"
-              value={this.state.Username || ''}
-              onChange={this.handleUsernameChange}/>
-            </label> <br />
-              Password:
-              <input type="text" id="PasswordLogin"
-              value={this.state.Password || ''}
-              onChange={this.handlePasswordChange}/> <br />
-            <input type="submit" id="SubmitLogin" value="Submit" />
-          </form>
-          <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col md="auto">
+              <div>
+                <h1 align="center">Virtual Caddy</h1>
+              </div>
+              <div>
+                <form onSubmit={this.verify}>
+                  <label>
+                    Username:
+                    <input type="text" id="UsernameLogin"
+                    value={this.state.Username || ''}
+                    onChange={this.handleUsernameChange}/>
+                  </label> <br />
+                    Password:
+                    <input type="text" id="PasswordLogin"
+                    value={this.state.Password || ''}
+                    onChange={this.handlePasswordChange}/> <br />
+                  <div>
+                    <input type="submit" id="SubmitLogin" value="Login" />
+                    <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>
+                  </div>
+                </form>
+              </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
       )
     }

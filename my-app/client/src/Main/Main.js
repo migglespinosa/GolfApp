@@ -6,7 +6,11 @@ import HandicapProgress from './HandicapProgress/HandicapProgress';
 import Map from './Map/Map';
 import Score from './Score/Score';
 import Outings from './Outings/Outings';
+import Settings from './Settings/Settings';
 import Buttons from './Buttons';
+
+import { connect } from 'react-redux';
+import { logoutGolfer } from '../Redux/actions/authActions';
 
 const greeting = {
   textAlign: 'center'
@@ -67,6 +71,9 @@ class Main extends Component{
     else if(this.state.display == "Outings"){
       body = <Outings golfer={this.props.golfer}/>
     }
+    else if(this.state.display == "Settings"){
+      body = <Settings/>
+    }
 
     //HomeButton displays whenever a user is not on the home page. Clicking
     //on it returns the user to the homepage.
@@ -77,6 +84,8 @@ class Main extends Component{
     else{
       homeButton = null;
     }
+
+
 
     return(
       <div>
@@ -89,5 +98,12 @@ class Main extends Component{
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
 
-export default Main;
+export default connect(
+  mapStateToProps,
+  {logoutGolfer}
+)(Main);

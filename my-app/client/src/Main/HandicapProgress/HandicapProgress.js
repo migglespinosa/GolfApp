@@ -7,7 +7,7 @@ import { VictoryContainer, VictoryChart, VictoryScatter} from 'victory';
 class HandicapProgress extends React.Component {
 
   render(){
-    const Handicaps = this.props.golfer.Handicap;
+    const Handicaps = this.props.golfer.handicap;
 
     //Converts the handicap dates into Date objects. This is necessary because
     //VictoryScatter only accepts Date objects.

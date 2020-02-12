@@ -134,52 +134,54 @@ router.route('/register').post((req, res) => {
 
   Golfer.findOne({username: req.body.username}).then(golfer => {
     if(golfer){
-      return res.status(400).json({ username: "User already exists" });
-    }}
-  )
+      console.log("User Exists");
+      return res.send({ username: "User already exists" });
+    }
+    else{
+      const username = req.body.username;
+      const password = req.body.password;
+      const first_name = req.body.first_name;
+      const last_name = req.body.last_name;
+      const friends = req.body.friends ? req.body.friends : [];
+      const differentials = req.body.differentials ? req.body.differentials : [];
+      const handicap = req.body.handicap ? req.body.handicap : [];
+      const confirmedOutings = req.body.confirmedOutings ? req.body.confirmedOutings : [];
+      const pendingOutings= req.body.pendingOutings ? req.body.pendingOutings : [];
+      const receivedRequests = req.body.receivedRequests ? req.body.receivedRequests : [];
+      const sentRequests = req.body.sentRequests ? req.body.sentRequests : [];
 
-
-  const username = req.body.username;
-  const password = req.body.password;
-  const first_name = req.body.first_name;
-  const last_name = req.body.last_name;
-  const friends = req.body.friends ? req.body.friends : [];
-  const differentials = req.body.differentials ? req.body.differentials : [];
-  const handicap = req.body.handicap ? req.body.handicap : [];
-  const confirmedOutings = req.body.confirmedOutings ? req.body.confirmedOutings : [];
-  const pendingOutings= req.body.pendingOutings ? req.body.pendingOutings : [];
-  const receivedRequests = req.body.receivedRequests ? req.body.receivedRequests : [];
-  const sentRequests = req.body.sentRequests ? req.body.sentRequests : [];
-
-  const newGolfer = new Golfer({
-    username,
-    password,
-    first_name,
-    last_name,
-    friends,
-    differentials,
-    handicap,
-    pendingOutings,
-    confirmedOutings,
-    receivedRequests,
-    sentRequests
-  });
-
-  console.log("newGolfer", newGolfer);
-
-  Golfer.findOne({username}).then(golfer => {
-
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newGolfer.password, salt, (err, hash) => {
-          if (err) throw err;
-          newGolfer.password = hash;
-          newGolfer
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-        });
+      const newGolfer = new Golfer({
+        username,
+        password,
+        first_name,
+        last_name,
+        friends,
+        differentials,
+        handicap,
+        pendingOutings,
+        confirmedOutings,
+        receivedRequests,
+        sentRequests
       });
-  });
+
+      console.log("newGolfer", newGolfer);
+
+      Golfer.findOne({username}).then(golfer => {
+
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newGolfer.password, salt, (err, hash) => {
+              if (err) throw err;
+              newGolfer.password = hash;
+              newGolfer
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+      });
+
+    }
+  })
 });
 
 module.exports = router;

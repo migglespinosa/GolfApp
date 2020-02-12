@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { searchUser, addRequests } from '../../Redux/actions/authActions';
 
 
-
 class FriendRequests extends React.Component {
   constructor(props){
     super(props);
@@ -34,9 +33,25 @@ class FriendRequests extends React.Component {
   search(event){
 
     this.props.searchUser(this.state.Username).then(res => {
-      this.setState({
-        NameExists: res.exists
+
+      const taken = this.props.golfer.friends.some(friend => {
+        return friend.username == this.state.Username
       })
+      if(taken){
+        this.setState({
+          NameExists: "AlreadyFriends"
+        })
+      }
+      else if(this.state.Username == this.props.golfer.username){
+        this.setState({
+          NameExists: "Yourself"
+        })
+      }
+      else{
+        this.setState({
+          NameExists: res.exists
+        })
+      }
     })
 
     event.preventDefault();

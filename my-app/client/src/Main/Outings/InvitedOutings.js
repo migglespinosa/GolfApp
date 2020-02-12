@@ -109,6 +109,7 @@ class InvitedOutings extends React.Component {
   render(){
 
     const Outings = this.state.outings;
+    console.log("Invited Outings:", Outings);
 
     let invitedOutings, invitedOutingsPending;
     if(Outings != null){

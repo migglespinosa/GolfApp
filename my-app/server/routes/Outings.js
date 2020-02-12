@@ -87,7 +87,6 @@ router.route('/accept/:id').put((req, res) => {
             if (err) {
               res.send(err);
             }
-            console.log("deleted")
           })
         })
       }

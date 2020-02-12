@@ -119,16 +119,17 @@ export const addHandicaps = (handicap) => dispatch => {
 
 // Register User
 export const registerGolfer = (userData) => dispatch => {
-  console.log("registerGolfer")
-  axios
-    .post("/Golfers/register", userData)
-    //.then(res => history.push("/login")) // re-direct to login on successful register
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  return(
+    console.log("registerGolfer")
+    axios.post("/Golfers/register", userData)
+      .then(res => {return {username: res.data.username}}) // re-direct to login on successful register
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  )
 };
 // Login - get user token
 export const loginGolfer = userData => dispatch => {
