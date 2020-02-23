@@ -13,7 +13,7 @@ class Outings extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      display: 'default'
+      display: 'create'
     }
     this.changeDisplay = this.changeDisplay.bind(this);
   }
@@ -27,79 +27,53 @@ class Outings extends React.Component {
 
   render(){
 
-    const pendingButton =
-      (<button type="button" id="pendingOutings" onClick={() => this.changeDisplay('pending')}>
-        Pending Outings
-      </button>)
-
-    const invitedButton =
-    (<button type="button" id="invitedOutings" onClick={() => this.changeDisplay('invited')}>
-      Invited Outings
-    </button>)
-
-    const defaultButton =
-    (<button type="button" id="invitedOutings" onClick={() => this.changeDisplay('default')}>
-      Outings Home
-    </button>)
-
-    let buttonDisplay;
-    if(this.state.display == 'default'){
-      buttonDisplay = (
-        <div>
-          {pendingButton}
-          {invitedButton}
-        </div>
-      )
-    }
-    else if(this.state.display == 'pending'){
-      buttonDisplay = (
-        <div>
-          {invitedButton}
-          {defaultButton}
-        </div>
-      )
-    }
-    else{
-      buttonDisplay = (
-        <div>
-          {pendingButton}
-          {defaultButton}
-        </div>
-      )
-    }
+    const buttons = (
+      <div>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <button type="button" id="homeOutings" onClick={() => this.changeDisplay('create')}>
+                Create
+              </button>
+              <button type="button" id="pendingOutings" onClick={() => this.changeDisplay('pending')}>
+                Pending
+              </button>
+              <button type="button" id="invitedOutings" onClick={() => this.changeDisplay('invited')}>
+                Invited
+              </button>
+              <button type="button" id="homeOutings" onClick={() => this.changeDisplay('default')}>
+                Upcoming Outings
+              </button>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    )
 
     let display;
-    if(this.state.display == 'default'){
-      display = (
-        <div>
-          <Container>
-            <Row>
-              <Col><UpcomingOutings golfer={this.props.golfer}/></Col>
-              <Col><SetOutings golfer={this.props.golfer}/></Col>
-            </Row>
-          </Container>
-        </div>
-      )
+    if(this.state.display === 'create'){
+      display = (<SetOutings golfer={this.props.golfer}/>);
     }
-    else if(this.state.display == 'invited'){
-      display = (
-        <div>
-          <InvitedOutings id={this.props.golfer._id}/>
-        </div>
-      )
+    else if(this.state.display === 'invited'){
+      display = (<InvitedOutings id={this.props.golfer._id}/>);
+    }
+    else if(this.state.display === 'pending'){
+      display = (<PendingOutings golfer={this.props.golfer}/>);
     }
     else{
-      display = (
-        <div>
-          <PendingOutings golfer={this.props.golfer}/>
-        </div>
-      )
+      display = (<UpcomingOutings golfer={this.props.golfer}/>);
     }
 
     return(
       <div>
-        {buttonDisplay}
-        {display}
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              {buttons}
+              {display}
+              </Col>
+            </Row>
+          </Container>
       </div>
     )
   }

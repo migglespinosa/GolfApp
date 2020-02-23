@@ -77,7 +77,6 @@ router.route('/accept/:id').put((req, res) => {
         })
 
         outing.participants.forEach(participant => {
-          console.log("participant: ", participant.participant);
           Golfer.findOneAndUpdate({_id: participant.participant}, { $push: {confirmedOutings: req.params.id}}, function(err, raw) {
             if (err) {
               res.send(err);
@@ -111,7 +110,6 @@ router.route('/decline/:id').put((req, res) => {
         })
 
         outing.participants.forEach(participant => {
-          console.log("participant: ", participant.participant);
           Golfer.findOneAndUpdate({_id: participant.participant}, { $push: {confirmedOutings: req.params.id}}, function(err, raw) {
             if (err) {
               res.send(err);

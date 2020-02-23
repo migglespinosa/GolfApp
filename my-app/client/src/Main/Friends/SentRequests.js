@@ -1,11 +1,9 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 
 function CreateList(props){
 
   if(props.golfer.sentRequests){
-  console.log("props.golfer.sentRequests: ", props.golfer.sentRequests);
     const friends = props.golfer.sentRequests.map(friend => (
       <ul>
         <li
@@ -28,7 +26,6 @@ class SentRequests extends React.Component {
   }
 
   render(){
-    console.log("props.golfer.sentRequests: ", this.props.golfer.sentRequests);
     return(
       <div>
         <h3>You've sent requests to the following people:</h3>

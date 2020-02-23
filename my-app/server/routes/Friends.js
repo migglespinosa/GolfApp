@@ -31,7 +31,6 @@ router.route('/sendRequest').post((req, res) => {
 
   Golfer.findOne({ username })
     .then(golfer => {
-      console.log("golfer._id: ", golfer._id);
       Golfer.updateOne({_id: id}, { $push: {sentRequests: golfer._id}}, function(err, raw) {
         if (err) {
           res.send(err);
@@ -59,8 +58,6 @@ router.route('/declineRequest').post((req, res) => {
 
   Golfer.findOne({ username })
     .then(golfer => {
-      console.log("/declineRequest golfer: ", golfer)
-      console.log("golfer._id: ", golfer._id)
       Golfer.updateOne({_id: id}, { $pull: {receivedRequests: golfer._id}}, function(err, raw) {
         if (err) {
           res.send(err);

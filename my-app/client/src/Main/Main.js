@@ -16,13 +16,6 @@ const greeting = {
   textAlign: 'center'
 }
 
-const homeStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-}
-
-
 class Main extends Component{
   constructor(props){
     super(props);
@@ -42,55 +35,40 @@ class Main extends Component{
   setComponent(componentToBeSet){
     this.setState({
       display: componentToBeSet
-    }, function(){
-      console.log("componentToBeSet: ", componentToBeSet)
     });
   }
 
   render(){
 
     let body;
-    if(this.state.display == 'Home'){
+    if(this.state.display === 'Home'){
       body = <Home golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "Calculate"){
+    else if(this.state.display === "Calculate"){
       body = <Calculate golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "Friends"){
+    else if(this.state.display === "Friends"){
       body = <Friends golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "HandicapProgress"){
+    else if(this.state.display === "HandicapProgress"){
       body = <HandicapProgress golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "Map"){
+    else if(this.state.display === "Map"){
       body = <Map/>
     }
-    else if(this.state.display == "Score"){
-      body = <Score/>
+    else if(this.state.display === "Score"){
+      body = <Score golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "Outings"){
+    else if(this.state.display === "Outings"){
       body = <Outings golfer={this.props.golfer}/>
     }
-    else if(this.state.display == "Settings"){
+    else if(this.state.display === "Settings"){
       body = <Settings/>
     }
 
-    //HomeButton displays whenever a user is not on the home page. Clicking
-    //on it returns the user to the homepage.
-    let homeButton;
-    if(this.state.display != 'Home'){
-      homeButton = <button onClick={e => this.setHome()} style={homeStyle} id="homeButton">Return Home</button>
-    }
-    else{
-      homeButton = null;
-    }
-
-
-
     return(
       <div>
-        {homeButton}
-        <h1 onClick={e => this.setHome()} style={greeting}>Welcome {this.props.golfer.first_name} {this.props.golfer.last_name} </h1>
+        <h1 onClick={e => this.setHome()} style={greeting}>Virtual Caddy</h1>
         <Buttons setComponent={this.setComponent}/>
         {body}
       </div>

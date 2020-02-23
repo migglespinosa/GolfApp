@@ -1,5 +1,4 @@
 import React from 'react';
-import data from '../../golfers';
 import '../../App.css';
 import { connect } from 'react-redux';
 import { searchUser, addRequests } from '../../Redux/actions/authActions';
@@ -10,6 +9,7 @@ class FriendRequests extends React.Component {
     super(props);
     this.state = {
       NameExists: null,
+      RequestSent: false,
       Username: ''
     }
     this.search = this.search.bind(this);
@@ -19,27 +19,45 @@ class FriendRequests extends React.Component {
   }
 
   handleUsernameChange(event){
-    this.setState({Username: event.target.value});
+    this.setState({Username: event.target.value,
+    NameExists: null});
   }
 
 
   setNameExists(status){
-    console.log("setNameExists status: ", status);
     this.setState({NameExists: status})
   }
 
 
-  //Searches golfers.json to see whether the name entered into the searchBar exists.
   search(event){
 
     this.props.searchUser(this.state.Username).then(res => {
-
       const taken = this.props.golfer.friends.some(friend => {
         return friend.username == this.state.Username
       })
+
+      const sent = this.props.golfer.sentRequests.some(request => {
+        return request.username == this.state.Username
+      })
+
+      const received = this.props.golfer.receivedRequests.some(request => {
+        return request.username == this.state.Username
+      })
+
+
       if(taken){
         this.setState({
           NameExists: "AlreadyFriends"
+        })
+      }
+      else if(sent){
+        this.setState({
+          NameExists: "AlreadySent"
+        })
+      }
+      else if(received){
+        this.setState({
+          NameExists: "AlreadyRecieved"
         })
       }
       else if(this.state.Username == this.props.golfer.username){
@@ -49,7 +67,8 @@ class FriendRequests extends React.Component {
       }
       else{
         this.setState({
-          NameExists: res.exists
+          NameExists: res.exists,
+          RequestSent: false
         })
       }
     })
@@ -63,6 +82,9 @@ class FriendRequests extends React.Component {
       username: this.state.Username,
     }
     this.props.addRequests(requestObject);
+    this.setState({
+      RequestSent: true
+    })
   }
 
   render(){
@@ -78,14 +100,23 @@ class FriendRequests extends React.Component {
       existsMessage = <h4>You can't add youself</h4>
     }
     else if(this.state.NameExists == "AlreadyFriends"){
-      existsMessage = <h4>You're already friends!</h4>
+      existsMessage = <h4>You're already friends</h4>
+    }
+    else if(this.state.NameExists == "AlreadySent"){
+      existsMessage = <h4>You've already sent {this.state.Username} a friend request.</h4>
+    }
+    else if(this.state.NameExists == "AlreadyRecieved"){
+      existsMessage = <h4>You've already recieved a friend request from {this.state.Username}.</h4>
+    }
+    else if(this.state.NameExists == true && this.state.RequestSent == true){
+      existsMessage = <h4>Request Sent!</h4>
     }
     else{
       existsMessage = <h4>Username does not exist</h4>
     }
 
     let sendRequest;
-    if(this.state.NameExists == true){
+    if(this.state.NameExists == true && this.state.RequestSent == false){
       sendRequest = <button type="button" id="sendRequest" onClick={() => this.sendRequest()}>
       Send {this.state.Username} a friend request</button>
     }

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 import axios from "axios";
 
@@ -12,10 +11,9 @@ class PendingOutingsDetails extends React.Component {
   }
 
   componentDidMount(){
-    
+
     axios.get("Outings/" + this.props.outing)
     .then(res => {
-      console.log("res");
       const participants = res.data.participants.map(participant => {
         return {
           username: participant.participant.username,
@@ -36,7 +34,7 @@ class PendingOutingsDetails extends React.Component {
     let listConfirmed;
     if(this.state.details){
       listConfirmed = this.state.details.map(outing => {
-        if(outing.confirmed == true){
+        if(outing.confirmed === true){
           return (<ul id="confirmedOutingsList">
               <li
                 key={this.state.details.indexOf(outing)}
@@ -54,7 +52,7 @@ class PendingOutingsDetails extends React.Component {
     let listPending;
     if(this.state.details){
       listPending = this.state.details.map(outing => {
-        if(outing.confirmed == false){
+        if(outing.confirmed === false){
           return (<ul id="unconfirmedOutingsList">
               <li
                 key={this.state.details.indexOf(outing)}

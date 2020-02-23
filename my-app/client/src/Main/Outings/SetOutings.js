@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 
 import { connect } from 'react-redux';
@@ -12,8 +11,13 @@ class SetOutings extends React.Component {
     this.state = {
       friendsInvited: [],
       friendsInvitedIds: [],
+
+      addFriend: false,
       inviteSent: false,
       isFriend: null,
+
+      invitationMessage: '',
+
       friend: "",
       location: "",
       date: ""
@@ -30,7 +34,12 @@ class SetOutings extends React.Component {
   //friendsInvited
   AddFriend(event){
 
-    if(!(this.props.golfer.friends.filter(friend => friend.username === this.state.friend).length > 0)){
+    if(this.state.friend == this.props.golfer.username){
+      this.setState({
+        isFriend: "Yourself"
+      });
+    }
+    else if(!(this.props.golfer.friends.filter(friend => friend.username === this.state.friend).length > 0)){
       this.setState({
         isFriend: false
       });
@@ -53,40 +62,48 @@ class SetOutings extends React.Component {
   }
   //Event handler for changing location state
   handleLocationChange(event){
-    this.setState({location: event.target.value});
+    this.setState({location: event.target.value,
+                   invitationMessage: ''});
   }
   //Event handler for changing date state
   handleDateChange(event){
-    this.setState({date: event.target.value});
+    this.setState({date: event.target.value,
+                   invitationMessage: ''});
   }
 
   //TEMPORARY: Since a server hasn't been purchased yet, sendInvite will only
   //set inviteSent to true
   sendInvite(event){
+    if(this.state.friendsInvited.length > 0){
+      const participants = this.state.friendsInvitedIds.map(participant => {
+        return {
+          participant: participant,
+          confirmed: false
+        }
+      })
 
-    const participants = this.state.friendsInvitedIds.map(participant => {
-      return {
-        participant: participant,
-        confirmed: false
+      participants.push({
+        participant: this.props.golfer._id,
+        confirmed: true
+      })
+
+      const outing = {
+        creator: this.props.golfer._id,
+        pending: true,
+        location: this.state.location,
+        date: this.state.date,
+        participants: participants
       }
-    })
 
-    participants.push({
-      participant: this.props.golfer._id,
-      confirmed: true
-    })
+      this.props.addPendingOuting(outing);
 
-    const outing = {
-      creator: this.props.golfer._id,
-      pending: true,
-      location: this.state.location,
-      date: this.state.date,
-      participants: participants
+      this.setState((state) => ({inviteSent: !state.inviteSent,
+                                 invitationMessage: 'Invitation Sent',
+                                 addFriend: !state.addFriend}));
     }
-
-    this.props.addPendingOuting(outing);
-
-    this.setState((state) => ({inviteSent: !state.inviteSent}));
+    else{
+      this.setState({invitationMessage: 'Friend needed'})
+    }
     event.preventDefault();
   }
 
@@ -106,10 +123,16 @@ class SetOutings extends React.Component {
     //Destructuring state into local variables to avoid typing `this.state` everytime
     const { friendsInvited, inviteSent, isFriend, friend, location, date } = this.state;
 
-    console.log("second")
-    console.log("friendsInvited render: ", this.state.friendsInvited);
-    console.log("inviteSent render: ", this.state.inviteSent);
-    console.log("this.state.friendsInvitedIds: ", this.state.friendsInvitedIds)
+    let friendMessage;
+    if(this.state.isFriend == false){
+      friendMessage = <h4>You are not friends</h4>;
+    }
+    else if(this.state.isFriend == "Yourself"){
+      friendMessage = <h4>You can't add yourself.</h4>;
+    }
+    else{
+      friendMessage = null;
+    }
 
     //inviteForm allows you to select a date and golf course for a future outing.
     const inviteForm = (
@@ -140,7 +163,9 @@ class SetOutings extends React.Component {
     //addFriendForm allows you to search for someone in your friend's list to
     //include to your outing. If the person is not your friend or doesn't exist,
     //then isFriend is set to false.
-    const addFriendForm = (
+    let addFriendForm;
+    if(this.state.addFriend){
+      addFriendForm = (
       <div>
         <form onSubmit={this.AddFriend}>
           <label>
@@ -149,35 +174,53 @@ class SetOutings extends React.Component {
             value={friend}
             onChange={this.handleFriendChange} />
           </label> <br />
-          <input type="submit" id="AddFriend" value="Submit" />
+          <input type="submit" id="AddFriend" value="Search" />
         </form>
-      </div>
-    );
+      </div>);
+    }
+    else{
+      addFriendForm = (<button onClick={() => this.setState({addFriend: true})}>
+                        Add friends
+                       </button>);
+    }
 
     //Displays an unordered list of friends you're planning to invite to your
     //golf outing.
     let friendsInvitedList;
-    if(friendsInvited.length > 0){
-      friendsInvitedList = (
-        friendsInvited.map(friend => (
-          <ul>
-            <li
-              key={friendsInvited.indexOf(friend)}
-            >
-              {friend}
-            </li>
-          </ul>
-        ))
-      );
+    if(this.state.inviteSent == false){
+      if(friendsInvited.length > 0){
+        friendsInvitedList = (
+          friendsInvited.map(friend => (
+            <ul>
+              <li
+                key={friendsInvited.indexOf(friend)}
+              >
+                {friend}
+              </li>
+            </ul>
+          ))
+        );
+      }
+      else{
+        friendsInvitedList = null;
+      }
     }
     else{
       friendsInvitedList = null;
     }
 
+
     //Displays a message whether an invite has been sent.
     let invitationMessage;
-    if(inviteSent == true){
-      invitationMessage = (<h2>Invitation Sent!</h2>);
+    if(this.state.invitationMessage == 'Invitation Sent'){
+      invitationMessage = (<h4>Invitation Sent!</h4>);
+    }
+    else if(this.state.invitationMessage == 'Friend needed'){
+      invitationMessage = (<h4>You must add at least one <br />
+                            friend to create an outing</h4>);
+    }
+    else if(this.state.invitationMessage == null){
+      invitationMessage = null;
     }
     else{
       invitationMessage = null;
@@ -198,9 +241,9 @@ class SetOutings extends React.Component {
         <h1>Create an outing</h1>
         {invitationMessage}
         {inviteForm}
+        {friendMessage}
         {addFriendForm}
         {friendsInvitedList}
-        {sendAnotherInvite}
       </div>
     )
   }

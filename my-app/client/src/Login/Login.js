@@ -13,6 +13,7 @@ class Login extends Component{
     this.state = {
       Username: null,
       Password: null,
+      loginMessage: null,
       onRegister: false
     }
     this.verify = this.verify.bind(this);
@@ -27,27 +28,45 @@ class Login extends Component{
       username: this.state.Username,
       password: this.state.Password
     }
-    this.props.loginGolfer(golfer);
+    this.props.loginGolfer(golfer).then(res => {
+      if(res.err.usernotfound == "User not found"){
+        this.setState({
+          loginMessage: "User not found"
+        })
+      }
+      else if(res.err.passwordincorrect == "Password incorrect"){
+        this.setState({
+          loginMessage: "Password incorrect"
+        })
+      }
+      else if(res.err.passwordincorrect == "Password incorrect" &&
+              res.err.usernotfound == "User not found"){
+        this.setState({
+          loginMessage: "User not found"
+        })
+      }
+    });
     event.preventDefault();
   }
 
   setRegister(){
     this.setState(state => ({
       onRegister: !state.onRegister
-    }), console.log("onRegister: ", this.state.onRegister));
+    }));
   }
 
   handleUsernameChange(event){
-    console.log("Username Changed")
     this.setState({Username: event.target.value});
   }
 
   handlePasswordChange(event){
-    console.log("Password Changed")
     this.setState({Password: event.target.value});
   }
 
   render(){
+
+    const loginMessage = <h4>{this.state.loginMessage}</h4>
+
     if(this.state.onRegister == false){
       return(
         <div>
@@ -58,17 +77,20 @@ class Login extends Component{
                 <h1 align="center">Virtual Caddy</h1>
               </div>
               <div>
+                {loginMessage}
                 <form onSubmit={this.verify}>
                   <label>
                     Username:
                     <input type="text" id="UsernameLogin"
                     value={this.state.Username || ''}
-                    onChange={this.handleUsernameChange}/>
+                    onChange={this.handleUsernameChange}
+                    required/>
                   </label> <br />
                     Password:
                     <input type="text" id="PasswordLogin"
                     value={this.state.Password || ''}
-                    onChange={this.handlePasswordChange}/> <br />
+                    onChange={this.handlePasswordChange}
+                    required/> <br />
                   <div>
                     <input type="submit" id="SubmitLogin" value="Login" />
                     <button type="button" id="RegisterButton" onClick={e => this.setRegister(e)}>Register</button>

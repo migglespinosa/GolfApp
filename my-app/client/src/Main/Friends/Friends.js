@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import FriendList from './FriendList';
 import FriendRequests from './FriendRequests';
+import ReducedFriendList from './ReducedFriendList';
 import ReceivedRequests from './ReceivedRequests';
 import SentRequests from './SentRequests';
 
@@ -14,7 +15,7 @@ class Friends extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      display: 'default'
+      display: 'search'
     }
     this.changeDisplay = this.changeDisplay.bind(this);
   }
@@ -27,53 +28,81 @@ class Friends extends React.Component {
 
   render(){
 
-    let buttonDisplay;
-    if(this.state.display == 'default'){
-      buttonDisplay = (
-        <div>
-          <button type="button" id="sentRequests" onClick={() => this.changeDisplay('sent')}>
-            Sent Requests
-          </button>
-          <button type="button" id="receivedRequests" onClick={() => this.changeDisplay('received')}>
-            Received Requests
-          </button>
-        </div>
-      )
-    }
-    else{
-      buttonDisplay = (
-        <div>
-          <button type="button" id="receivedRequests" onClick={() => this.changeDisplay('default')}>
-              List and Search Friends
-          </button>
-        </div>
-      )
-    }
+    const buttonDisplay = (
+      <div>
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col md="auto">
+            <div>
+              <button type="button" id="receivedRequests" onClick={() => this.changeDisplay('search')}>
+                Search
+              </button>
+              <button type="button" id="receivedRequests" onClick={() => this.changeDisplay('list')}>
+                Friends ({this.props.golfer.friends.length})
+              </button>
+              <button type="button" id="sentRequests" onClick={() => this.changeDisplay('sent')}>
+                Sent
+              </button>
+              <button type="button" id="receivedRequests" onClick={() => this.changeDisplay('received')}>
+                Received
+              </button>
+            </div>
+            </Col>
+          </Row>
+      </Container>
+      </div>
+    );
 
     let display;
-    if(this.state.display == 'default'){
+    if(this.state.display === 'search'){
       display = (
         <div>
-          <Container>
-            <Row>
-              <Col><FriendRequests golfer={this.props.golfer}/></Col>
-              <Col><FriendList golfer={this.props.golfer}/></Col>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <FriendRequests golfer={this.props.golfer}/>
+              </Col>
+            </Row>
+        </Container>
+        </div>
+      )
+    }
+    else if(this.state.display === 'received'){
+      display = (
+        <div>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <ReceivedRequests golfer={this.props.golfer}/>
+              </Col>
             </Row>
           </Container>
         </div>
       )
     }
-    else if(this.state.display == 'received'){
+    else if(this.state.display === 'sent'){
       display = (
         <div>
-          <ReceivedRequests golfer={this.props.golfer}/>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <SentRequests golfer={this.props.golfer}/>
+              </Col>
+            </Row>
+          </Container>
         </div>
       )
     }
     else{
       display = (
         <div>
-          <SentRequests golfer={this.props.golfer}/>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <FriendList golfer={this.props.golfer}/>
+            </Col>
+          </Row>
+        </Container>
         </div>
       )
     }

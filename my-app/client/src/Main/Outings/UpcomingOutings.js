@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 import { searchUser } from '../../Redux/actions/authActions';
 import axios from "axios";
@@ -17,9 +16,8 @@ class UpcomingOutings extends React.Component {
 
     axios.get("Outings/Confirmed/"+this.props.golfer._id)
     .then(res => {
-      console.log("res.data: ", res.data)
       const outings = res.data.filter(outing => {
-        if(outing.pending == false){
+        if(outing.pending === false){
           return {
             id: outing._id,
             creator: outing.creator,
@@ -30,7 +28,6 @@ class UpcomingOutings extends React.Component {
           }
         }
       })
-      console.log("outings: ", outings)
       this.setState({
         outings: outings
       })
@@ -41,7 +38,6 @@ class UpcomingOutings extends React.Component {
 
     // Destructure props into local variables to avoid typing `this.props` everytime
     const Outings = this.state.outings;
-    console.log("Outings: ", Outings);
 
     let futureOutings;
     if(Outings != null){

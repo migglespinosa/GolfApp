@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from '../../logo.svg';
+import React from 'react'
 import '../../App.css';
 import * as V from 'victory';
 import { VictoryContainer, VictoryChart, VictoryScatter} from 'victory';
@@ -18,19 +17,17 @@ class HandicapProgress extends React.Component {
       return newHandicap;
     });
 
-    console.log(newHandicaps);
-
     return(
 
       <VictoryChart
         height={200} width={300}
-        maxDomain={{y: 120}}
+        maxDomain={{y: 200}}
         containerComponent={<VictoryContainer responsive={false}/>}
         scale={{x: 'time'}}>
         <VictoryScatter
           style={{ data: { fill: "#c43a31" } }}
           size={7}
-          data={newHandicaps}
+          data={this.props.golfer.handicap}
           x="Date"
           y="Handicap"
         />

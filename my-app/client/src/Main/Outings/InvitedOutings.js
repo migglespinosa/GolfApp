@@ -1,11 +1,6 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 import axios from "axios";
-
-const isPending = function(participant, index, array){
-  return participant.confirmed == false
-}
 
 class InvitedOutings extends React.Component {
   constructor(props){
@@ -24,7 +19,7 @@ class InvitedOutings extends React.Component {
     axios.get("Outings/GolferPending/"+this.props.id)
     .then(res => {
       const outings = res.data.filter(outing => {
-        if(outing.creator != this.props.id){
+        if(outing.creator !== this.props.id){
           return {
             id: outing._id,
             creator: outing.creator,
@@ -44,28 +39,28 @@ class InvitedOutings extends React.Component {
   acceptOuting(outingId){
 
     const currentOuting = this.state.outings.filter(outing => {
-      if(outing._id == outingId){
+      if(outing._id === outingId){
         return outing;
       }
     })
 
     const filteredOutings = this.state.outings.filter(outing => {
-      if(outing._id  != outingId){
+      if(outing._id  !== outingId){
         return outing;
       }
     })
 
     let participantId;
     currentOuting[0].participants.forEach(participant => {
-      if(participant.participant == this.props.id){
+      if(participant.participant === this.props.id){
         participantId = participant._id
       }
     })
 
 
 
-    axios.put("Outings/accept/"+outingId, {participantId: participantId}).
-    then(res => {
+    axios.put("Outings/accept/"+outingId, {participantId: participantId})
+    .then(res => {
       this.setState({
         outings: filteredOutings
       })
@@ -75,26 +70,26 @@ class InvitedOutings extends React.Component {
   declineOuting(outingId){
 
     const currentOuting = this.state.outings.filter(outing => {
-      if(outing._id == outingId){
+      if(outing._id === outingId){
         return outing;
       }
     })
 
     const filteredOutings = this.state.outings.filter(outing => {
-      if(outing._id  != outingId){
+      if(outing._id  !== outingId){
         return outing;
       }
     })
 
     let participantId;
     currentOuting[0].participants.forEach(participant => {
-      if(participant.participant == this.props.id){
+      if(participant.participant === this.props.id){
         participantId = participant._id
       }
     })
 
-    axios.put("Outings/decline/"+outingId, {participantId: participantId}).
-    then(res => {
+    axios.put("Outings/decline/"+outingId, {participantId: participantId})
+    .then(res => {
       this.setState({
         outings: filteredOutings
       })
@@ -102,20 +97,19 @@ class InvitedOutings extends React.Component {
   }
 
   isConfirmed(participant, index, array){
-    return participant.confirmed == true && participant.participant == this.props.id
+    return participant.confirmed === true && participant.participant === this.props.id
   }
 
 
   render(){
 
     const Outings = this.state.outings;
-    console.log("Invited Outings:", Outings);
 
     let invitedOutings, invitedOutingsPending;
     if(Outings != null){
       invitedOutings = Outings.filter(outing => new Date(outing.date).getTime() > this.state.date);
       invitedOutingsPending = invitedOutings.filter(outing => {
-        if(outing.participants.some(this.isConfirmed) == false && outing.pending == true){
+        if(outing.participants.some(this.isConfirmed) === false && outing.pending === true){
           return outing
         }})
     }

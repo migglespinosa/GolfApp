@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../logo.svg';
 import '../../App.css';
+import {Container, Row, Col} from 'react-bootstrap';
 
 class Home extends React.Component{
   constructor(props){
@@ -14,8 +15,6 @@ class Home extends React.Component{
   //findRecentHandicap sorts a golfer's handicap differentials by date,
   //and sets the handicap state to the most recent score.
   findRecentHandicap(){
-    console.log("findRecentHandicap this.props.golfer: ", this.props.golfer);
-    console.log("isEmpty(findRecentHandicap)", this.props.golfer.handicap.length == 0);
     const handicap = this.props.golfer.handicap;
 
 
@@ -28,7 +27,7 @@ class Home extends React.Component{
     */
 
     let sortedHandicap;
-    if(handicap.length == 0){
+    if(handicap.length === 0){
       sortedHandicap = 0;
     }
     else{
@@ -38,7 +37,6 @@ class Home extends React.Component{
       sortedHandicap = sorted[0].handicap;
     }
 
-    console.log("friends :", this.props.golfer.friends);
     this.setState({
       handicap: sortedHandicap
     });
@@ -51,16 +49,19 @@ class Home extends React.Component{
 
   render(){
 
-    //Displays to the user his or her most recent handicap.
-    const HandicapMessage = (
-      <div>
-        <h1>Your handicap is {this.state.handicap}</h1>
-      </div>
-    )
-
     return(
       <div>
-        {HandicapMessage}
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <p>Welcome to Virtual Caddy,
+                {this.props.golfer.first_name} {this.props.golfer.last_name}! <br />
+                The Caddy enables you to calculate your handicap, befriend <br />
+                other golfers, and set up outings
+              </p>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

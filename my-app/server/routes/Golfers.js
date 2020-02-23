@@ -15,6 +15,15 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/:id').get((req, res) => {
+
+  Golfer.findById(req.params.id)
+    .then(golfer => {
+      res.send(golfer)
+    })
+    .catch(err => res.status(400).json('Error!: ' + err));
+});
+
 
 router.post("/login", (req, res) => {
   // Form validation
@@ -42,15 +51,13 @@ const password = req.body.password;
       return res.status(404).json({ usernotfound: "User not found" });
     }
 
-    console.log("password: ", password);
-    console.log("golfer.password", golfer.password);
 // Check password
     bcrypt.compare(password, golfer.password).then(isMatch => {
       if (isMatch) {
-        console.log("login golfer: ", golfer);
 
         const friends = golfer.friends.map(golfer => {
-          return {username: golfer.username,
+          return {id: golfer._id,
+                  username: golfer.username,
                   first_name: golfer.first_name,
                   last_name: golfer.last_name}
         })
@@ -80,7 +87,6 @@ const password = req.body.password;
                   location: outing.location,
                   particpants: outing.particpants}
         })
-
 
         // User matched
         // Create JWT Payload
@@ -113,7 +119,6 @@ const password = req.body.password;
           }
         );
       } else {
-        console.log("!isMatch");
         return res
           .status(400)
           .json({ passwordincorrect: "Password incorrect" });
@@ -134,7 +139,6 @@ router.route('/register').post((req, res) => {
 
   Golfer.findOne({username: req.body.username}).then(golfer => {
     if(golfer){
-      console.log("User Exists");
       return res.send({ username: "User already exists" });
     }
     else{
@@ -163,8 +167,6 @@ router.route('/register').post((req, res) => {
         receivedRequests,
         sentRequests
       });
-
-      console.log("newGolfer", newGolfer);
 
       Golfer.findOne({username}).then(golfer => {
 

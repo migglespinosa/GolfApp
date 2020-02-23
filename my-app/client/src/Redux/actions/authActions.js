@@ -10,8 +10,36 @@ import {
   UPDATE_REQUEST,
   DECLINE_REQUEST,
   ACCEPT_REQUEST,
-  ADD_PENDING_OUTING
+  ADD_PENDING_OUTING,
+  DELETE_HANDICAP,
+  DELETE_DIFFERENTIAL
 } from "./types";
+
+export const deleteDifferential = (differential) => dispatch => {
+  axios.post("/Golfers/deleteDifferential", differential)
+  .then(
+    dispatch(removeDifferential(differential))
+  )
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response
+    })
+  )
+}
+
+export const deleteHandicap = (handicap) => dispatch => {
+  axios.post("/Golfers/deleteHandicap", handicap)
+  .then(
+    dispatch(removeHandicap(handicap))
+  )
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response
+    })
+  )
+}
 
 export const addPendingOuting = (outing) => dispatch => {
   axios.post("/outings/addPendingOuting", outing)
@@ -40,7 +68,6 @@ export const acceptRequest = (acceptObject) => dispatch => {
 }
 
 export const declineRequest = (declineObject) => dispatch => {
-  console.log("declineObject: ", declineObject)
   axios.post("/Golfers/declineRequest", declineObject)
     .then(res => {
       dispatch(rejectRequest(declineObject.username));
@@ -77,7 +104,6 @@ export const searchUser = (user) => dispatch => {
   return(
     axios.post("/Golfers/search", userObject)
       .then(res => {
-        console.log("res.data.exists", res.data.exists);
         return {exists: res.data.exists, id: res.data.id};
       })
       .catch(err =>
@@ -91,7 +117,6 @@ export const searchUser = (user) => dispatch => {
 
 // Add Differentials
 export const addDifferentials = (differential) => dispatch => {
-  console.log("addDifferntial called");
 
   dispatch(updateDifferentials(differential));
   axios.post("/Golfers/addDifferntial", differential)
@@ -106,7 +131,6 @@ export const addDifferentials = (differential) => dispatch => {
 // Add handicaps
 export const addHandicaps = (handicap) => dispatch => {
 
-  console.log("handicap: ", handicap)
   dispatch(updateHandicaps(handicap));
   axios.post("/Golfers/addHandicap", handicap)
   .catch(err =>
@@ -119,21 +143,22 @@ export const addHandicaps = (handicap) => dispatch => {
 
 // Register User
 export const registerGolfer = (userData) => dispatch => {
-  return(
-    console.log("registerGolfer")
+
+  return (
     axios.post("/Golfers/register", userData)
-      .then(res => {return {username: res.data.username}}) // re-direct to login on successful register
-      .catch(err =>
+    .then(res => {
+      return {username: res.data.username}}) // re-direct to login on successful register
+      .catch(err => {
         dispatch({
           type: GET_ERRORS,
           payload: err.response.data
         })
-      );
-  )
+      })
+    )
 };
 // Login - get user token
 export const loginGolfer = userData => dispatch => {
-  console.log("loginGolfer")
+  return(
   axios
     .post("/Golfers/login", userData)
     .then(res => {
@@ -146,23 +171,33 @@ export const loginGolfer = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
 
-      console.log("decoded: ", decoded);
-
       // Set current user
       //findGolfer(decoded.id);
 
       dispatch(setCurrentGolfer(decoded));
     })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+    .catch(err => {
+      return {err: err.response.data}
+    })
+  )
 };
 
+export const removeDifferential = differential => {
+
+  return {
+    type: DELETE_DIFFERENTIAL,
+    payload: differential
+  }
+};
+
+export const removeHandicap = handicap => {
+  return {
+    type: DELETE_HANDICAP,
+    payload: handicap
+  }
+}
+
 export const addPending = outing => {
-  console.log("addPending");
   return {
     type: ADD_PENDING_OUTING,
     payload: outing
@@ -208,7 +243,6 @@ export const updateHandicaps = handicap => {
 
 // Set logged in user
 export const setCurrentGolfer = decoded => {
-  console.log("decoded: ", decoded);
   return {
     type: SET_CURRENT_GOLFER,
     payload: decoded

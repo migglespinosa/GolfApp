@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import '../../App.css';
 import axios from "axios";
 import PendingOutingsDetails from './PendingOutingsDetails';
@@ -20,7 +19,7 @@ class PendingOutings extends React.Component {
     axios.get("Outings/GolferPending/"+this.props.golfer._id)
     .then(res => {
       const outings = res.data.filter(outing => {
-        if(outing.pending == true){
+        if(outing.pending === true){
           return {
             id: outing._id,
             creator: outing.creator,
@@ -40,13 +39,12 @@ class PendingOutings extends React.Component {
   render(){
 
     const Outings = this.state.outings;
-    console.log("PendingOutings: ", Outings);
 
     let pendingOutings, pendingOutingsConfirmed;
     if(Outings != null){
       pendingOutings = Outings.filter(outing => new Date(outing.date).getTime() > this.state.date);
       pendingOutingsConfirmed = pendingOutings.filter(outing => {
-        if(outing.pending == true){
+        if(outing.pending === true){
           return outing
         }
       })
@@ -65,7 +63,7 @@ class PendingOutings extends React.Component {
               details: true,
               currentOuting: outing._id})
             }}>
-             to play at {outing.location} on {outing.date} id: {outing._id}
+             to play at {outing.location} on {outing.date}
           </li>
         </ul>)));
     }
@@ -73,7 +71,7 @@ class PendingOutings extends React.Component {
       list = null;
     }
 
-    if(this.state.details == false){
+    if(this.state.details === false){
       return(
         <div>
           <h4>You are awaiting confirmation:</h4>

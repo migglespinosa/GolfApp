@@ -30,11 +30,6 @@ class MainLoginContainer extends Component{
 
   render(){
 
-    console.log("this.props.auth.user: ", this.props.auth.user)
-    console.log("this.props.auth.isAuthenticated: ", this.props.auth.isAuthenticated);
-    console.log("this.golfer: ", this.golfer);
-    console.log("isLoggedin: ", this.state.isLoggedin);
-
     if(this.props.auth.isAuthenticated  == true){
       return (
         <div>

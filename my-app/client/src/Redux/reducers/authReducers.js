@@ -6,7 +6,9 @@ import {
   UPDATE_REQUEST,
   DECLINE_REQUEST,
   ACCEPT_REQUEST,
-  ADD_PENDING_OUTING
+  ADD_PENDING_OUTING,
+  DELETE_DIFFERENTIAL,
+  DELETE_HANDICAP
 } from "../actions/types";
 const isEmpty = require("is-empty");
 const initialState = {
@@ -18,7 +20,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_GOLFER:
-      console.log("action.payload: ", action.payload);
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
@@ -66,14 +67,11 @@ export default function(state = initialState, action) {
 
     case DECLINE_REQUEST:
       const receivedRequests = state.user.receivedRequests;
-      console.log("action.payload: ", action.payload);
       const filteredRequests = receivedRequests.filter(request => {
         if(request.username == action.payload){
           return false;
         }
-
       })
-      console.log("filteredRequests: ", filteredRequests);
 
       return {
         ...state,
@@ -101,11 +99,8 @@ export default function(state = initialState, action) {
         })
       }
     case ADD_PENDING_OUTING:
-
-
       const newPendingOutings = state.user.pendingOutings;
       newPendingOutings.push(action.payload);
-      console.log("newPendingOutings: ", newPendingOutings);
 
       return {
         ...state,
@@ -113,6 +108,31 @@ export default function(state = initialState, action) {
           pendingOutings: newPendingOutings,
         })
       }
+    case DELETE_DIFFERENTIAL:
+      const newDifferentials = state.user.differentials.filter(differential => {
+        if(differential != action.payload.differential){
+          return differential
+        }
+      });
+
+      return {
+        ...state,
+        user: Object.assign({}, state.user, {
+          differentials: newDifferentials,
+        })
+      }
+      case DELETE_HANDICAP:
+        const newHandicap = state.user.handicap.filter(handicap => {
+          if(handicap != action.payload.handicap){
+            return handicap
+          }
+        });
+        return {
+          ...state,
+          user: Object.assign({}, state.user, {
+            handicap: newHandicap,
+          })
+        }
     default:
       return state;
   }
