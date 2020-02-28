@@ -4,6 +4,7 @@
   "engines": {
     "node": "12.13.0"
   },
+  "main": "server/server.js",
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^1.5.3",
@@ -25,6 +26,7 @@
     "client-install": "cd client && npm install",
     "client": "cd client && npm start",
     "start": "cd server && npm install && node server.js",
+    "server": "cd server && nodemon server.js --exec babel-node --presets babel-preset-env",
     "dev": "concurrently \"cd server && npm run server\" \"cd client && npm run client\"",
     "heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
