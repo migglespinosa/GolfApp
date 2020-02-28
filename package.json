@@ -24,7 +24,7 @@
   "scripts": {
     "client-install": "cd client && npm install",
     "client": "cd client && npm start",
-    "start": "cd backend && npm install && node index.js",
+    "start": "cd server && npm install && node server.js",
     "dev": "concurrently \"cd server && npm run server\" \"cd client && npm run client\"",
     "heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
