@@ -2,6 +2,7 @@ import React from 'react';
 import data from '../../golfers';
 import '../../App.css';
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const findHandicap = handicap => {
 
@@ -31,7 +32,7 @@ class FriendDetails extends React.Component {
 
     axios.get("Golfers/" + this.props.selected)
     .then(res => {
-      console.log("res:", res);
+      console.log("res:", jwt_decode(res.config.headers.Authorization));
       this.setState({
         golfer: res.data
       })
