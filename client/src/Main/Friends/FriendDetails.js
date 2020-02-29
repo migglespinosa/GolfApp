@@ -32,7 +32,7 @@ class FriendDetails extends React.Component {
 
     axios.get("Golfers/" + this.props.selected)
     .then(res => {
-      console.log("res:", jwt_decode(res.config.headers.Authorization));
+      console.log("res:", res);
       this.setState({
         golfer: res.data
       })
