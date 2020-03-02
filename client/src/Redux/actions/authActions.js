@@ -162,6 +162,7 @@ export const loginGolfer = userData => dispatch => {
   axios
     .post("/Golfers/login", userData)
     .then(res => {
+      console.log("res ", res);
       // Save to localStorage
 // Set token to localStorage
       const { token } = res.data;
