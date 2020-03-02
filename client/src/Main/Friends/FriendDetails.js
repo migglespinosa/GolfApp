@@ -30,7 +30,7 @@ class FriendDetails extends React.Component {
 
   componentDidMount(){
 
-    axios.post("Golfers/" + this.props.selected)
+    axios.get("Golfers/" + this.props.selected)
     .then(res => {
       console.log("res:", res);
       this.setState({
