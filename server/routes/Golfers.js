@@ -15,12 +15,12 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').post((req, res) => {
+router.route('/:id').get((req, res) => {
 
   Golfer.findById(req.params.id)
     .then(golfer => {
       console.log("golfer ", golfer);
-      res.send({golfer: golfer})
+      res.json(golfer);
     })
     .catch(err => res.status(400).json('Error!: ' + err));
 });
