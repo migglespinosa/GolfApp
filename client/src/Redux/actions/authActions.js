@@ -104,6 +104,7 @@ export const searchUser = (user) => dispatch => {
   return(
     axios.post("/Golfers/search", userObject)
       .then(res => {
+        console.log("res ", res);
         return {exists: res.data.exists, id: res.data.id};
       })
       .catch(err =>
