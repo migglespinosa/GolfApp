@@ -28,7 +28,7 @@ class FriendDetails extends React.Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
 
     axios.get("Golfers/" + this.props.selected)
     .then(res => {
