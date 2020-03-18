@@ -20,7 +20,7 @@ router.route('/:id').get((req, res) => {
   Golfer.findById(req.params.id)
     .then(golfer => {
       console.log("golfer ", golfer);
-      res.json(golfer);
+      return res.json(golfer);
     })
     .catch(err => res.status(400).json('Error!: ' + err));
 });
