@@ -28,7 +28,8 @@
     "start": "cd server && npm install && node server.js",
     "server": "cd server && nodemon server.js --exec babel-node --presets babel-preset-env",
     "dev": "concurrently \"cd server && npm run server\" \"cd client && npm run client\"",
-    "heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build
+    --prefix client"
   },
   "eslintConfig": {
     "extends": "react-app"
